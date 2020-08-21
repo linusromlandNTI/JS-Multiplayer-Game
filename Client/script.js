@@ -1,6 +1,14 @@
-const serverURL = "https://node.cloudremover.com";
+var serverURL = "https://node.cloudremover.com";
+
+
+
+function onload(){
+  document.getElementById("url").value = serverURL
+}
 
 function coolio() {
+  serverURL = document.getElementById("url").value
+
   document.getElementById("cool").innerHTML = "not cool";
 
   var time1 = Date.now();
@@ -19,6 +27,9 @@ function coolio() {
   request2.open("POST", serverURL, true);
   request2.setRequestHeader("Content-type", "application/json");
 
-  var data = { McLissLiss: "Cool" };
+  var data = '{ "Users" : [' +
+  '{ "firstName":"John" , "lastName":"Doe" },' +
+  '{ "firstName":"Anna" , "lastName":"Smith" },' +
+  '{ "firstName":"Peter" , "lastName":"Jones" } ]}'; 
   request2.send(JSON.stringify(data));
 }
