@@ -5,7 +5,8 @@
 ## Open Source Multiplayer Browser Game. 
 
 Gymnasiearbete.
+https://cloudremover.com/
 
-Written in NodeJS and HTMl, CSS, JS.
+Written in NodeJS and HTML, CSS, JS.
 
 *JS-Multiplayer-Game is under MIT License*
