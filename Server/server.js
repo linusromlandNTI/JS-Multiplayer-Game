@@ -3,8 +3,7 @@ var fs = require("fs");
 var qs = require("querystring");
 
 //create a server object:
-http
-  .createServer(function (req, res) {
+http.createServer(function (req, res) {
     res.write("Hello World!"); //write a response to the client
 
     getPost(req);
