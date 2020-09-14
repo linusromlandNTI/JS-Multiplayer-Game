@@ -1,4 +1,4 @@
-const url = 'ws://localhost:8080'
+const url = 'ws://192.168.29.37:8080'
 const connection = new WebSocket(url)
 
 connection.onopen = () => {
