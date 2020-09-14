@@ -1,3 +1,11 @@
-let hmm: string = "Coolt"
+import WebSocket from 'ws'
 
-console.log(`tpye! ${hmm}`)
+const wss = new WebSocket.Server({ port: 8080 })
+
+wss.on('connection', ws => {
+  ws.on('message', message => {
+    console.log(`Received message => ${message}`)
+    ws.send('Je suis une Typescript server!') 
+  })
+ 
+})
