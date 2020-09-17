@@ -14,6 +14,10 @@ var i = 0;
 connection.onmessage = (e) => {
     console.log(e.data)
 
+    let widthOfElement = parseFloat(e.data)
+
+    document.getElementById("moveable").style.width = widthOfElement + "px"
+
     connection.send(i);
     i = i + 1;
 };

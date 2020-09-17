@@ -11,7 +11,7 @@ let totalRequests = 0;
 wss.on("connection", (ws) => {
   var cooldate: number = Date.now();
   
-  setInterval(sendMessage, 20, ws)
+  setInterval(sendMessage, 15, ws)
 
   ws.on("message", (message) => {
     
@@ -22,5 +22,5 @@ wss.on("connection", (ws) => {
 
 function sendMessage(ws: WebSocket) {
 
-  ws.send("Je suis une Typescript server!");
+  ws.send(Math.random() * 500);
 }
