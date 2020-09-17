@@ -17,10 +17,16 @@ document.addEventListener('keydown', function(event) {
     connection.send(event.key);
 });
 
+let lastPosition;
+
 connection.onmessage = (e) => {
-    console.log(e.data)
 
     let widthOfElement = parseFloat(e.data)
+    if (!(lastPosition == widthOfElement)) {
+        console.log(e.data)
+        document.getElementById("moveable").style.width = widthOfElement + "px"
+    }
 
-    document.getElementById("moveable").style.width = widthOfElement + "px"
+
+    lastPosition = widthOfElement;
 };
