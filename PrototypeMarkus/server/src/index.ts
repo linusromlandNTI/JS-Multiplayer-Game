@@ -10,28 +10,17 @@ let totalRequests = 0;
 
 wss.on("connection", (ws) => {
   var cooldate: number = Date.now();
+  
+  setInterval(sendMessage, 20, ws)
 
   ws.on("message", (message) => {
     
-    if (
-      parseInt(message.toString()) % chunkSize == 0 &&
-      parseInt(message.toString()) != 0
-    ) {
-      console.log(`Received message => ${message}`);
-      var time = Date.now() - cooldate;
-      cooldate = Date.now();
-
-      totalRequests = totalRequests + chunkSize;
-
-      var coolertime = time / chunkSize;
-
-      console.log(
-        `ms/request: ${coolertime}\nFPS: ${
-          1000 / coolertime
-        }\nTotal requests: ${totalRequests}\n`
-      );
-    }
-
-    ws.send("Je suis une Typescript server!");
+    
   });
 });
+
+
+function sendMessage(ws: WebSocket) {
+
+  ws.send("Je suis une Typescript server!");
+}
