@@ -1,4 +1,4 @@
-const url = "ws://cloudremover.com:8069";
+const url = "wss://cloudremover.com:8069";
 const connection = new WebSocket(url);
 
 connection.onopen = () => {
