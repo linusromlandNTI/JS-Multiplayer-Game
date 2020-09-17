@@ -6,21 +6,29 @@ const chunkSize: number = 1000;
 
 console.log("Server started");
 
-let totalRequests = 0;
+let position: number = 0;
 
 wss.on("connection", (ws) => {
   var cooldate: number = Date.now();
-  
+
   setInterval(sendMessage, 15, ws)
 
   ws.on("message", (message) => {
-    
-    
+    console.log(message.toString());
+
+    if (message == "d") {
+      position = position + 10;
+    } if (message == "a") {
+      position = position - 10
+
+    }
   });
 });
 
-
+let positionLast: number
 function sendMessage(ws: WebSocket) {
-
-  ws.send(Math.random() * 500);
+  //if (!(position == positionLast)) {
+  ws.send(position);
+  // }
+  // positionLast = position;
 }
