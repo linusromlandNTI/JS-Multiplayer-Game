@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cool Game</title>
-    <script src="dist/main.js"></script>
-</head>
-<body>
+    <script src="dist/index.js"></script>
+    <script src="dist/http.js"></script>
+    <script src="dist/ws.js"></script>
+  </head>
+  <body>
     <p>Press here, then press keys</p>
-</body>
+
+    <input id="url" type="url" placeholder="Server URL" style="width: 200px" />
+
+    <button type="button" id="coolbtn" onclick="start()">WS</button>
+    <button type="button" id="coolbtn" onclick="">HTTP</button>
+  </body>
 </html>
