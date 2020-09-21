@@ -1,5 +1,4 @@
-let wsConnection: WebSocket 
-
+let wsConnection: WebSocket
 function wsConnect(){
   wsConnection = new WebSocket(url);
 
@@ -7,15 +6,11 @@ function wsConnect(){
     //wsConnection.send("hej");
   };
   
-  wsConnection.onerror = (error) => {
+  wsConnection.onerror = (error: any) => {
     console.log(`WebSocket error: ${error}`);
   };
   
-  wsConnection.onmessage = (e) => {
+  wsConnection.onmessage = (e: any) => {
     onMessage(e.data)
-  };
-}
-
-function wsClose(){
-  if(wsConnection) wsConnection.close()
+  }
 }

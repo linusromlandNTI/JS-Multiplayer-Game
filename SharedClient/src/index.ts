@@ -1,8 +1,21 @@
 /// <reference path="http.ts" />
 /// <reference path="ws.ts" />
 
-let ws: boolean = false; //WS or HTTP
+let ws: boolean = true; //WS or HTTP
 let url: string = "wss://cloudremover.com:8069"; //Default url, changeable by user
+
+function onHtmlLoad(){
+
+  let urlInput = <HTMLInputElement> document.getElementById("url")
+  if(urlInput){
+    urlInput.value = url
+  }
+
+  let checkBox = <HTMLInputElement> document.getElementById("protocolCheck")
+  if(checkBox){
+    checkBox.checked = ws
+  }
+}
 
 //Start game loop
 function start() {
@@ -48,12 +61,6 @@ function changeProtocol(){
   let checkBox = <HTMLInputElement> document.getElementById("protocolCheck")
   if(checkBox){
     ws = checkBox.checked
-  }
-
-  if(ws){
-    wsConnect()
-  }else{
-    wsClose()
   }
 
   console.log(ws)
