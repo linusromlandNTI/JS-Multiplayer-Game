@@ -1,11 +1,21 @@
-const wsConnection = new WebSocket(url);
+let wsConnection: WebSocket 
 
-wsConnection.onopen = () => {
-  //wsConnection.send("hej");
-};
+function wsConnect(){
+  wsConnection = new WebSocket(url);
 
-wsConnection.onerror = (error) => {
-  console.log(`WebSocket error: ${error}`);
-};
+  wsConnection.onopen = () => {
+    //wsConnection.send("hej");
+  };
+  
+  wsConnection.onerror = (error) => {
+    console.log(`WebSocket error: ${error}`);
+  };
+  
+  wsConnection.onmessage = (e) => {
+    onMessage(e.data)
+  };
+}
 
-wsConnection.onmessage = (e) => {};
+function wsClose(){
+  if(wsConnection) wsConnection.close()
+}

@@ -11,9 +11,11 @@
   <body>
     <p>Press here, then press keys</p>
 
-    <input id="url" type="url" placeholder="Server URL" style="width: 200px" />
+    <input id="url" type="url" oninput="changeURL()" placeholder="Server URL" style="width: 200px"/>
 
-    <button type="button" id="coolbtn" onclick="start()">WS</button>
-    <button type="button" id="coolbtn" onclick="">HTTP</button>
+    <br>
+    <input type="checkbox" checked="false" id="protocolCheck" onclick="changeProtocol()">WS (else HTTP)</input>
+    <br>
+    <button type="button" onclick="start()">Connect</button>
   </body>
 </html>

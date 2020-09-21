@@ -3,8 +3,8 @@ function httpGet() {
   request.open("GET", url, true);
 
   request.onload = function () {
-    console.log(request.responseText);
-  };
+    onMessage(request.responseText)
+  }
 
   request.send();
 }
