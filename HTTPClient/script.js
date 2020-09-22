@@ -1,6 +1,6 @@
-var serverURL = "https://node.cloudremover.com";
+var serverURL = "http://localhost:8080";
 
-
+let number = 0;
 
 function onload(){
   document.getElementById("url").value = serverURL
@@ -24,12 +24,16 @@ function coolio() {
 
   //Test POST request
   var request2 = new XMLHttpRequest();
-  request2.open("POST", serverURL, true);
-  request2.setRequestHeader("Content-type", "application/json");
+  request2.open("POST", "http://localhost:8080", true);
+  request2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  request2.send("number=" + number);
 
-  var data = '{ "Users" : [' +
-  '{ "firstName":"John" , "lastName":"Doe" },' +
-  '{ "firstName":"Anna" , "lastName":"Smith" },' +
-  '{ "firstName":"Peter" , "lastName":"Jones" } ]}'; 
-  request2.send(JSON.stringify(data));
+  request2.onload = function () {
+
+    document.getElementById("theBox").innerHTML = request2.responseText;
+    number = request2.responseText
+    requestAnimationFrame(coolio)
+  }
+
+  
 }
