@@ -1,5 +1,5 @@
 let wsConnection: WebSocket
-function wsConnect(){
+async function wsConnect(){
   wsConnection = new WebSocket(url);
 
   wsConnection.onopen = () => {
@@ -13,4 +13,16 @@ function wsConnect(){
   wsConnection.onmessage = (e: any) => {
     onMessage(e.data)
   }
+
+  await resolveAfter2Seconds();
+}
+
+//Doing this because it did not wait to connect, and that broke stuff
+//(bad solution probably)
+function resolveAfter2Seconds() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, 2000);
+  });
 }
