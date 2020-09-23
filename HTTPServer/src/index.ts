@@ -17,8 +17,7 @@ app.get( "/", ( req, res ) => {
 } );
 
 app.post('/', function (req, res) {
-    console.log("\nNew POST request! \n\nName: " + req.body.number)
-    res.send((parseInt(req.body.number) + 1).toString())
+    console.log("\nNew POST request! \n\n" + req.body.number)
     res.end()
 })
 

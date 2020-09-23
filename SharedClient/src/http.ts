@@ -12,6 +12,6 @@ function httpGet() {
 function httpPost(message: string) {
   let request = new XMLHttpRequest();
   request.open("POST", url, true);
-
-  request.send(message);
+  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  request.send(message)
 }
