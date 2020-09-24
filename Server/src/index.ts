@@ -55,11 +55,11 @@ function httpServer() {
   );
 
   app.get("/", (req, res) => {
-    res.send(position);
+    res.send("hej");
   });
 
   app.post("/", function (req, res) {
-    onMessage(req.body);
+    onMessage(req.body.data);
     res.end();
   });
 

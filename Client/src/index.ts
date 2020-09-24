@@ -24,8 +24,6 @@ async function start() {
     await wsConnect();
   }
 
-  sendToServer(""); //Send name and stuff
-
   gameLoop();
 }
 
@@ -52,7 +50,7 @@ function gameLoop() {
 }
 
 function onMessage(message: string) {
-  console.log("ws " + ws + " says: " + message);
+  //console.log("ws " + ws + " says: " + message);
   if (move) {
     move.style.width = parseInt(message) + "px";
   }
