@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import { stringify } from "querystring";
 
 const app = express();
-const port = 8080; // default port to listen
+const port = 6969; // default port to listen
 
 app.use(cors())
 app.use(bodyParser.json());
