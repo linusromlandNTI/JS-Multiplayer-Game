@@ -6,6 +6,7 @@ import WebSocket from "ws";
 import fs from 'fs';
 import https from 'https'
 
+let position: number = 0;
 
 const httpsServer = https.createServer({
     key: fs.readFileSync("/etc/letsencrypt/live/cloudremover.com/privkey.pem"),
@@ -25,8 +26,15 @@ function wsServer() {
         setInterval(ws.send, 15, ws)
 
         ws.on("message", (message: any) => {
-            console.log(message.toString());
+            if (message == "d") {
+                position = position + 10;
+              } if (message == "a") {
+                position = position - 10
+              }
         });
+        function sendMessage(ws: WebSocket) {
+            ws.send(position);
+          }
     });
 }
 httpsServer.listen(8069);
@@ -48,12 +56,16 @@ function httpServer() {
     }));
 
     app.get("/", (req, res) => {
-        res.send(msg);
+        res.send(position);
     });
 
     app.post('/', function (req, res) {
-        rec = req.body
-        res.end()
+        let message: string = req.body
+        if (message == "d") {
+            position = position + 10;
+          } if (message == "a") {
+            position = position - 10
+          }        res.end()
     })
 
     app.listen(port, () => {

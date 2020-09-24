@@ -33,7 +33,6 @@ wss.on("connection", (ws) => {
       position = position + 10;
     } if (message == "a") {
       position = position - 10
-
     }
   });
 });

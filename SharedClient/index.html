@@ -8,6 +8,7 @@
     <script src="dist/input.js"></script>
     <script src="dist/http.js"></script>
     <script src="dist/ws.js"></script>
+    <script src="script.js"></script>
   </head>
   <body onload="onHtmlLoad()">
     <p>Press here, then press keys</p>
@@ -18,5 +19,6 @@
     <input type="checkbox" id="protocolCheck" onclick="changeProtocol()">WS (else HTTP)</input>
     <br>
     <button type="button" onclick="start()">Connect</button>
+    <div id="moveable" style="width: 50px; height: 50px; background-color: red; "></div>
   </body>
 </html>

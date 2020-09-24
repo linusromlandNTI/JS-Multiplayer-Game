@@ -5,6 +5,7 @@
 
 let ws: boolean = true; //WS or HTTP
 let url: string = "wss://cloudremover.com:8069"; //Default url, changeable by user
+let move = document.getElementById("moveable")
 
 function onHtmlLoad() {
   let urlInput = <HTMLInputElement>document.getElementById("url");
@@ -43,6 +44,9 @@ function gameLoop() {
 
 function onMessage(message: string) {
   console.log("ws " + ws + " says: " + message);
+  if(move){
+    move.style.width = parseInt(message) + "px"
+  }
 }
 
 //Send to HTTP or WS server
