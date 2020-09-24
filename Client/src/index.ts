@@ -2,10 +2,9 @@
 /// <reference path="ws.ts" />
 /// <reference path="input.ts" />
 
-
 let ws: boolean = true; //WS or HTTP
 let url: string = "wss://cloudremover.com:8069"; //Default url, changeable by user
-let move = document.getElementById("moveable")
+let move = document.getElementById("moveable");
 
 function onHtmlLoad() {
   let urlInput = <HTMLInputElement>document.getElementById("url");
@@ -25,15 +24,18 @@ async function start() {
     await wsConnect();
   }
 
+  sendToServer(""); //Send name and stuff
+
   gameLoop();
 }
 
 //Running every frame
 function gameLoop() {
-  var inputData =
-    '{"w":' + w + ', "a":' + a + ', "s":' + s + ', "d":' + d + "}";
-
-  sendToServer(inputData); //Insert Input JSon data here
+  var inputData = {
+    info: { name: "testname"},
+    input: { w: w, a: a, s: s, d: d },
+  };
+  sendToServer(JSON.stringify(inputData));
 
   if (!ws) {
     httpGet();
@@ -44,8 +46,8 @@ function gameLoop() {
 
 function onMessage(message: string) {
   console.log("ws " + ws + " says: " + message);
-  if(move){
-    move.style.width = parseInt(message) + "px"
+  if (move) {
+    move.style.width = parseInt(message) + "px";
   }
 }
 
@@ -57,4 +59,3 @@ function sendToServer(message: string) {
     httpPost(message);
   }
 }
-
