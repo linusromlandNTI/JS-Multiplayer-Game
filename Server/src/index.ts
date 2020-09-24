@@ -39,7 +39,7 @@ function wsServer() {
 }
 httpsServer.listen(8069);
 
-
+wsServer()
 
 const app = express();
 const port = 8080; // default port to listen
