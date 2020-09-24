@@ -25,12 +25,8 @@ function wsServer() {
 
         setInterval(ws.send, 15, ws)
 
-        ws.on("message", (message: any) => {
-            if (message == "d") {
-                position = position + 10;
-              } if (message == "a") {
-                position = position - 10
-              }
+        ws.on("message", (message: string) => {
+            console.log(message)
         });
         function sendMessage(ws: WebSocket) {
             ws.send(position);
