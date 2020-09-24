@@ -27,15 +27,7 @@ function wsServer() {
     setInterval(sendMessage, 15, "test");
 
     ws.on("message", (message: string) => {
-      try {
-        let inputs = JSON.parse(message);
-
-        console.log("\nw: " + inputs.input.w);
-        console.log("name: " + inputs.info.name);
-        console.log("whole message: " + message);
-      } catch (error) {
-        console.error(error);
-      }
+      onMessage(message);
     });
     function sendMessage(message: string) {
       ws.send(message);
@@ -67,13 +59,7 @@ function httpServer() {
   });
 
   app.post("/", function (req, res) {
-    let message: string = req.body;
-    if (message == "d") {
-      position = position + 10;
-    }
-    if (message == "a") {
-      position = position - 10;
-    }
+    onMessage(req.body);
     res.end();
   });
 
@@ -82,13 +68,24 @@ function httpServer() {
   });
 }
 
-function Player(name: any) {
-  const obj = {
-    name: String,
-    x: Number,
-    y: Number,
-  };
-  obj.name = name;
+function onMessage(message: string) {
+  try {
+    let inputs = JSON.parse(message);
 
+    console.log("\nw: " + inputs.input.w);
+    console.log("name: " + inputs.info.name);
+    console.log("whole message: " + message);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function Player(name: any) {
+  let obj = {
+    id: Math.random().toString(36).slice(2).toString(),
+    name: name,
+    x: Number(),
+    y: Number(),
+  };
   return obj;
 }

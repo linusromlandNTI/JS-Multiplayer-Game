@@ -29,13 +29,20 @@ async function start() {
   gameLoop();
 }
 
+let previousData = {};
+
 //Running every frame
 function gameLoop() {
-  var inputData = {
-    info: { name: "testname"},
+  var currentData = {
+    info: { name: "testname" },
     input: { w: w, a: a, s: s, d: d },
   };
-  sendToServer(JSON.stringify(inputData));
+
+  //Optimisation to only send data if data is different from last data sent
+  if (!(JSON.stringify(previousData) == JSON.stringify(currentData))) {
+    sendToServer(JSON.stringify(currentData));
+  }
+  previousData = currentData;
 
   if (!ws) {
     httpGet();
