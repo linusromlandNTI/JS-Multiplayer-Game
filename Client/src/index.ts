@@ -32,16 +32,19 @@ let previousData = {};
 
 //Running every frame
 function gameLoop() {
-  /*if (username == null) {
-    
-  } else {*/
+  let username = <HTMLInputElement>document.getElementById("username");
+  
+  if (username == null) {
+    window.alert("Choose a username")
+  } else {
     var currentData = {
-      info: { name: "testname" },
+      info: { name: username.value },
       input: { w: w, a: a, s: s, d: d },
     };
   
     //Optimisation to only send data if data is different from last data sent
     if (!(JSON.stringify(previousData) == JSON.stringify(currentData))) {
+      
       sendToServer(JSON.stringify(currentData));
     }
     previousData = currentData;
@@ -49,24 +52,25 @@ function gameLoop() {
     if (!ws) {
       httpGet();
     }
-  //}
+    //}
   
 
-  requestAnimationFrame(gameLoop); //Loop next frame
-}
-
-function onMessage(message: string) {
-  //console.log("ws " + ws + " says: " + message);
-  if (move) {
-    move.style.width = parseInt(message) + "px";
+    requestAnimationFrame(gameLoop); //Loop next frame
   }
-}
 
-//Send to HTTP or WS server
-function sendToServer(message: string) {
-  if (ws) {
-    if (wsConnection) wsConnection.send(message);
-  } else {
-    httpPost(message);
+  function onMessage(message: string) {
+    //console.log("ws " + ws + " says: " + message);
+    if (move) {
+      move.style.width = parseInt(message) + "px";
+    }
+  }
+
+  //Send to HTTP or WS server
+  function sendToServer(message: string) {
+    if (ws) {
+      if (wsConnection) wsConnection.send(message);
+    } else {
+      httpPost(message);
+    }
   }
 }

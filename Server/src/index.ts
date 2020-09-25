@@ -71,31 +71,34 @@ function httpServer() {
 function onMessage(message: string) {
   try {
     let inputs = JSON.parse(message);
-    //if (validPlayer(inputs.info.name)) {
+    if (validPlayer(inputs.info.name.toString())) {
       console.log(`User ${inputs.info.name} is moving! \nW = ${inputs.input.w}\nA = ${inputs.input.a}\nS = ${inputs.input.s}\nD = ${inputs.input.d}`)
-    //}
+    } else {
+      players.push(Player(inputs.info.name))
+    }
   } catch (error) {
     console.error(error);
   }
 }
 
-/*function validPlayer(name: any) {
+function validPlayer(name: any) {
+  let exists: boolean = false;
   playerNames.forEach(playerName => {
-    let exists: boolean = false;
     if (playerName == name) {
       exists = true;
     } 
-    return exists 
   });
-}*/
+  return exists 
+}
 
 function Player(name: any) {
+  console.log("New Player Created named " + name)
   let obj = {
     id: Math.random().toString(36).slice(2).toString(),
     name: name,
     x: Number(),
     y: Number(),
   };
-  playerNames.push(name)
+  playerNames.push(obj.name)
   return obj;
 }
