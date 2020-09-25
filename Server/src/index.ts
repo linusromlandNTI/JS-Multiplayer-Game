@@ -8,7 +8,7 @@ import https from "https";
 
 let position: number = 0;
 let players: Array<object> = [];
-players.push(Player("Linus"));
+let playerNames: Array<string> = [];
 
 const httpsServer = https.createServer({
   key: fs.readFileSync("/etc/letsencrypt/live/cloudremover.com/privkey.pem"),
@@ -71,14 +71,23 @@ function httpServer() {
 function onMessage(message: string) {
   try {
     let inputs = JSON.parse(message);
-
-    console.log("\nw: " + inputs.input.w);
-    console.log("name: " + inputs.info.name);
-    console.log("whole message: " + message);
+    //if (validPlayer(inputs.info.name)) {
+      console.log(`User ${inputs.info.name} is moving! \nW = ${inputs.input.w}\nA = ${inputs.input.a}\nS = ${inputs.input.s}\nD = ${inputs.input.d}`)
+    //}
   } catch (error) {
     console.error(error);
   }
 }
+
+/*function validPlayer(name: any) {
+  playerNames.forEach(playerName => {
+    let exists: boolean = false;
+    if (playerName == name) {
+      exists = true;
+    } 
+    return exists 
+  });
+}*/
 
 function Player(name: any) {
   let obj = {
@@ -87,5 +96,6 @@ function Player(name: any) {
     x: Number(),
     y: Number(),
   };
+  playerNames.push(name)
   return obj;
 }

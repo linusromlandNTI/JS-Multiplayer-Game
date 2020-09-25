@@ -5,6 +5,7 @@
 let ws: boolean = true; //WS or HTTP
 let url: string = "wss://cloudremover.com:8069"; //Default url, changeable by user
 let move = document.getElementById("moveable");
+let username: string;
 
 function onHtmlLoad() {
   let urlInput = <HTMLInputElement>document.getElementById("url");
@@ -31,20 +32,25 @@ let previousData = {};
 
 //Running every frame
 function gameLoop() {
-  var currentData = {
-    info: { name: "testname" },
-    input: { w: w, a: a, s: s, d: d },
-  };
-
-  //Optimisation to only send data if data is different from last data sent
-  if (!(JSON.stringify(previousData) == JSON.stringify(currentData))) {
-    sendToServer(JSON.stringify(currentData));
-  }
-  previousData = currentData;
-
-  if (!ws) {
-    httpGet();
-  }
+  /*if (username == null) {
+    
+  } else {*/
+    var currentData = {
+      info: { name: "testname" },
+      input: { w: w, a: a, s: s, d: d },
+    };
+  
+    //Optimisation to only send data if data is different from last data sent
+    if (!(JSON.stringify(previousData) == JSON.stringify(currentData))) {
+      sendToServer(JSON.stringify(currentData));
+    }
+    previousData = currentData;
+  
+    if (!ws) {
+      httpGet();
+    }
+  //}
+  
 
   requestAnimationFrame(gameLoop); //Loop next frame
 }
