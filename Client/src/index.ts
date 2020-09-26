@@ -32,13 +32,14 @@ let previousData = {};
 
 //Running every frame
 function gameLoop() {
-  let username = <HTMLInputElement>document.getElementById("username");
+  let usernameInput = <HTMLInputElement>document.getElementById("username");
+  username = usernameInput.value
   
-  if (username == null) {
+  if (username == "") {
     window.alert("Choose a username")
   } else {
     var currentData = {
-      info: { name: username.value },
+      info: { name: username },
       input: { w: w, a: a, s: s, d: d },
     };
   
@@ -57,20 +58,20 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop); //Loop next frame
   }
+}
 
-  function onMessage(message: string) {
-    //console.log("ws " + ws + " says: " + message);
-    if (move) {
-      move.style.width = parseInt(message) + "px";
-    }
+function onMessage(message: string) {
+  //console.log("ws " + ws + " says: " + message);
+  if (move) {
+    move.style.width = parseInt(message) + "px";
   }
+}
 
-  //Send to HTTP or WS server
-  function sendToServer(message: string) {
-    if (ws) {
-      if (wsConnection) wsConnection.send(message);
-    } else {
-      httpPost(message);
-    }
+//Send to HTTP or WS server
+function sendToServer(message: string) {
+  if (ws) {
+    if (wsConnection) wsConnection.send(message);
+  } else {
+    httpPost(message);
   }
 }
