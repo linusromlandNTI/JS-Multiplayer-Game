@@ -33,28 +33,25 @@ let previousData = {};
 //Running every frame
 function gameLoop() {
   let usernameInput = <HTMLInputElement>document.getElementById("username");
-  username = usernameInput.value
-  
+  username = usernameInput.value;
+
   if (username == "") {
-    window.alert("Choose a username")
+    window.alert("Choose a username");
   } else {
     var currentData = {
       info: { name: username },
       input: { w: w, a: a, s: s, d: d },
     };
-  
+
     //Optimisation to only send data if data is different from last data sent
     if (!(JSON.stringify(previousData) == JSON.stringify(currentData))) {
-      
       sendToServer(JSON.stringify(currentData));
     }
     previousData = currentData;
-  
+
     if (!ws) {
       httpGet();
     }
-    //}
-  
 
     requestAnimationFrame(gameLoop); //Loop next frame
   }
