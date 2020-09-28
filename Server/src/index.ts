@@ -49,13 +49,13 @@ function onMessage(message: string) {
     console.error(error);
   }
 }
+
 //Check if player with name exists
-function validPlayer(name: any) {
-  players.forEach((player) => {
-    if (player.name == name) {
+function validPlayer(name: string) {
+  for (let i = 0; i < players.length; i++) {
+    if (players[i].name == name) {
       return true;
     }
-  });
-
+  }
   return false;
 }
