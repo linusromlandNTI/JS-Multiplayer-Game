@@ -77,7 +77,6 @@ function onMessage(message: string) {
       );
     } else {
       players.push(new Player(inputs.info.name));
-      generateJson();
     }
   } catch (error) {
     console.error(error);
