@@ -11,7 +11,7 @@ createHttpServer();
 createWsServer();
 
 function createHttpServer() {
-  http = new Http();
+  http = new Http(8080);
 
   http.app.post("/", function (req, res) {
     onMessage(req.body.data);
@@ -20,10 +20,18 @@ function createHttpServer() {
 }
 
 function createWsServer() {
-  ws = new Ws();
+  ws = new Ws(8069);
 
-  ws.wss.on("message", (message: string) => {
-    onMessage(message);
+  ws.wss.on("connection", (wsLib) => {
+    setInterval(sendMessage, 15, "test");
+
+    function sendMessage(message: string) {
+      wsLib.send(message);
+    }
+
+    wsLib.on("message", (message: string) => {
+      onMessage(message);
+    });
   });
 }
 
@@ -41,7 +49,6 @@ function onMessage(message: string) {
     console.error(error);
   }
 }
-
 //Check if player with name exists
 function validPlayer(name: any) {
   players.forEach((player) => {

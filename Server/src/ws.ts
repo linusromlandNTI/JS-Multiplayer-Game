@@ -10,7 +10,7 @@ export class Ws {
 
   wss: WebSocket.Server;
 
-  constructor() {
+  constructor(port: number) {
     this.httpsServer.on("request", (req, res) => {
       res.writeHead(200);
       res.end("hello HTTPS world\n");
@@ -18,14 +18,9 @@ export class Ws {
 
     this.wss = new WebSocket.Server({ server: this.httpsServer });
 
-    this.wss.on("connection", (ws: WebSocket) => {
-      setInterval(sendMessage, 15, "test");
+    
 
-      
-
-      function sendMessage(message: string) {
-        ws.send(message);
-      }
-    });
+    this.httpsServer.listen(port);
+    console.log(`WebSocket Server started on port ${port}`);
   }
 }
