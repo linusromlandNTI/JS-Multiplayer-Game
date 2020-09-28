@@ -2,8 +2,8 @@ export class Player {
   name: string;
   id: string;
 
-  x: Number = 0;
-  y: Number = 0;
+  x: number = 0;
+  y: number = 0;
 
   constructor(name: string) {
     this.name = name;

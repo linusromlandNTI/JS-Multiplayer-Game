@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 
 export class Http {
   app = express();
-  //msg: string = "hej";
 
   constructor(port: number) {
     this.app.use(cors());
@@ -14,10 +13,6 @@ export class Http {
         extended: true,
       })
     );
-
-    this.app.get("/", (req, res) => {
-      res.send("hej");
-    });
 
     this.app.listen(port, () => {
       console.log(`HTTP Server started on port ${port}`);

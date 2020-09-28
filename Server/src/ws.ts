@@ -18,8 +18,6 @@ export class Ws {
 
     this.wss = new WebSocket.Server({ server: this.httpsServer });
 
-    
-
     this.httpsServer.listen(port);
     console.log(`WebSocket Server started on port ${port}`);
   }

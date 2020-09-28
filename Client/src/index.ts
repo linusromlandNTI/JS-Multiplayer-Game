@@ -58,7 +58,7 @@ function gameLoop() {
 }
 
 function onMessage(message: string) {
-  //console.log("ws " + ws + " says: " + message);
+  console.log("Incoming message: " + message);
   if (move) {
     move.style.width = parseInt(message) + "px";
   }
