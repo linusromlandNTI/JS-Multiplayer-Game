@@ -39,7 +39,7 @@ function createWsServer() {
 function onPost(message: string) {
   try {
     let inputs = JSON.parse(message);
-    if (!existingPlayer(inputs.info.name.toString())) {
+    if (existingPlayer(inputs.info.name.toString())) {
       onMessage(message);
     } else {
       onJoin(inputs.info.name);
