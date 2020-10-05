@@ -6,8 +6,8 @@ export let outData = "";
 let areaW = 1500;
 let areaH = 800;
 
-let playerW = 20;
-let playerH = 20;
+let playerW = 30;
+let playerH = 54;
 
 export function onMessage(message: string) {
   let inputs = JSON.parse(message);

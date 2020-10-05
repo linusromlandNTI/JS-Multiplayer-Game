@@ -11,6 +11,7 @@ function render(message: string) {
   var ctx = c.getContext("2d");
 
   if (ctx) {
+    ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, c.width, c.height);
 
     ctx.font = "14px Arial";
@@ -25,7 +26,12 @@ function render(message: string) {
       if (name.length > 15) name = name.substr(0, 15);
       ctx.fillText(name, player.x + pWidth / 2, player.y - pHeight / 2);
 
-      drawRect(ctx, player.x, player.y, pWidth, pHeight);
+      const image = new Image(60, 45);
+      image.src = "res/guy.png";
+
+      ctx.drawImage(image, player.x, player.y, pWidth, pHeight);
+
+      //drawRect(ctx, player.x, player.y, pWidth, pHeight);
     }
   }
 }
