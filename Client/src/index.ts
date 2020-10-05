@@ -1,6 +1,7 @@
 /// <reference path="http.ts" />
 /// <reference path="ws.ts" />
 /// <reference path="input.ts" />
+/// <reference path="render.ts" />
 
 let ws: boolean = true; //WS or HTTP
 let url: string = "wss://cloudremover.com:8069"; //Default url, changeable by user
@@ -58,7 +59,8 @@ function gameLoop() {
 }
 
 function onMessage(message: string) {
-  console.log("Incoming message: " + message);
+  //console.log("Incoming message: " + message);
+  render(message)
 }
 
 //Send to HTTP or WS server

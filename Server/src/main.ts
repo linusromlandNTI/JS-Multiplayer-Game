@@ -28,9 +28,9 @@ export function onJoin(name: string) {
 export function onLoop() {
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
-    if(player.w) player.y += 1;
+    if(player.w) player.y -= 1;
     if(player.a) player.x -= 1;
-    if(player.s) player.y -= 1;
+    if(player.s) player.y += 1;
     if(player.d) player.x += 1;
   }
   outData = generateJson()

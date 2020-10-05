@@ -9,6 +9,7 @@
     <script src="dist/input.js"></script>
     <script src="dist/http.js"></script>
     <script src="dist/ws.js"></script>
+    <script src="dist/render.js"></script>
 
     <link rel="icon" type="image/jpg" href="https://cloudremover.com/favicon.ico"/>
   </head>
@@ -23,5 +24,7 @@
     <input type="checkbox" id="protocolCheck" onclick="changeProtocol()">WS (else HTTP)</input>
     <br>
     <button type="button" onclick="start()">Connect</button>
+    <br>
+    <canvas id="mainCanvas" width="1000" height="800" style="background-color: burlywood"></canvas>
   </body>
 </html>
