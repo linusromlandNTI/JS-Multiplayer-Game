@@ -22,18 +22,20 @@ export function onMessage(message: string) {
 
 export function onJoin(name: string) {
   console.log("New player!");
+
+  if (name.length > 15) name = name.substr(0, 15);
   players.push(new Player(name));
 }
 
 export function onLoop() {
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
-    if(player.w) player.y -= 1;
-    if(player.a) player.x -= 1;
-    if(player.s) player.y += 1;
-    if(player.d) player.x += 1;
+    if (player.w) player.y -= 1;
+    if (player.a) player.x -= 1;
+    if (player.s) player.y += 1;
+    if (player.d) player.x += 1;
   }
-  outData = generateJson()
+  outData = generateJson();
 }
 
 function generateJson(): string {
@@ -51,5 +53,5 @@ function generateJson(): string {
 
   currentData.players.shift(); //Removes template data, TODO: make it without this
 
-  return JSON.stringify(currentData)
+  return JSON.stringify(currentData);
 }

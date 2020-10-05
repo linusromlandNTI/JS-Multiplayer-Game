@@ -60,7 +60,7 @@ function gameLoop() {
 
 function onMessage(message: string) {
   //console.log("Incoming message: " + message);
-  render(message)
+  render(message);
 }
 
 //Send to HTTP or WS server

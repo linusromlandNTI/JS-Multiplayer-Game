@@ -6,7 +6,7 @@ let http;
 createHttpServer();
 createWsServer();
 
-setInterval(onLoop, 15)
+setInterval(onLoop, 15);
 
 function createHttpServer() {
   http = new Http(8080);

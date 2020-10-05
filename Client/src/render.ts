@@ -19,6 +19,7 @@ function render(message: string) {
       let player = jsonMessage.players[i];
       //console.log("name: " + player.name);
       drawRect(ctx, player.x, player.y, pWidth, pHeight);
+
       ctx.fillText(player.name, player.x+(pWidth/2), player.y-(pHeight/2)); 
     }
   }
