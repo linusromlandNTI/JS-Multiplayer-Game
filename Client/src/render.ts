@@ -17,10 +17,16 @@ function render(message: string) {
 
     for (let i = 0; i < jsonMessage.players.length; i++) {
       let player = jsonMessage.players[i];
-      //console.log("name: " + player.name);
+
+      let name = player.name;
+      if (name.length > 15) name = name.substr(0, 15);
+      ctx.fillText(name, player.x+(pWidth/2), player.y-(pHeight/2)); 
+
       drawRect(ctx, player.x, player.y, pWidth, pHeight);
 
-      ctx.fillText(player.name, player.x+(pWidth/2), player.y-(pHeight/2)); 
+      
+
+      
     }
   }
 }

@@ -22,8 +22,6 @@ export function onMessage(message: string) {
 
 export function onJoin(name: string) {
   console.log("New player!");
-
-  if (name.length > 15) name = name.substr(0, 15);
   players.push(new Player(name));
 }
 
