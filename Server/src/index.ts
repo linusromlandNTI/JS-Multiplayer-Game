@@ -24,10 +24,10 @@ function createWsServer() {
   ws = new Ws(8069);
 
   ws.wss.on("connection", (wsLib) => {
-    setInterval(sendMessage, 15, JSON.stringify(data));
+    setInterval(sendMessage, 15);
 
-    function sendMessage(message: string) {
-      wsLib.send(message);
+    function sendMessage() {
+      wsLib.send(JSON.stringify(data));
     }
 
     wsLib.on("message", (message: string) => {

@@ -59,9 +59,6 @@ function gameLoop() {
 
 function onMessage(message: string) {
   console.log("Incoming message: " + message);
-  if (move) {
-    move.style.width = parseInt(message) + "px";
-  }
 }
 
 //Send to HTTP or WS server

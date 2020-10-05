@@ -7,7 +7,8 @@ export let data = {
 };
 
 export function onMessage(message: string) {
-  console.log("New Message!");
+  let inputs = JSON.parse(message);
+      console.log(`User ${inputs.info.name} is moving! \nW = ${inputs.input.w}\nA = ${inputs.input.a}\nS = ${inputs.input.s}\nD = ${inputs.input.d}`);
 }
 
 export function onJoin(name: string) {
