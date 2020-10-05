@@ -10,7 +10,7 @@ function httpGet() {
 
 function httpPost(message: string) {
   let request = new XMLHttpRequest();
-  request.open("POST", "https://node.cloudremover.com", true);
+  request.open("POST", url, true);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   request.send(`data=${message}`);
 }

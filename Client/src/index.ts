@@ -7,6 +7,7 @@ let ws: boolean = true; //WS or HTTP
 let url: string = "wss://cloudremover.com:8069"; //Default url, changeable by user
 let move = document.getElementById("moveable");
 let username: string;
+let spectator = false;
 
 function onHtmlLoad() {
   let urlInput = <HTMLInputElement>document.getElementById("url");
@@ -14,9 +15,14 @@ function onHtmlLoad() {
     urlInput.value = url;
   }
 
-  let checkBox = <HTMLInputElement>document.getElementById("protocolCheck");
-  if (checkBox) {
-    checkBox.checked = ws;
+  let protocolCheck = <HTMLInputElement>document.getElementById("protocolCheck");
+  if (protocolCheck) {
+    protocolCheck.checked = ws;
+  }
+
+  let spectatorCheck = <HTMLInputElement>document.getElementById("spectatorCheck");
+  if (spectatorCheck) {
+    spectatorCheck.checked = spectator;
   }
 }
 
@@ -24,7 +30,7 @@ function onHtmlLoad() {
 async function start() {
   let usernameInput = <HTMLInputElement>document.getElementById("username");
   username = usernameInput.value;
-  
+
   if (username == "" || username == null) {
     window.alert("Choose a username");
     return;
@@ -51,10 +57,10 @@ let previousData = {};
 
 //Running every frame
 function gameLoop() {
-  let usernameInput = <HTMLInputElement>document.getElementById("username");
-  username = usernameInput.value;
+  if (!spectator) {
+    let usernameInput = <HTMLInputElement>document.getElementById("username");
+    username = usernameInput.value;
 
-  if (username != "" && username != null) {
     var currentData = {
       info: { name: username },
       input: { w: w, a: a, s: s, d: d, shift: shift },
@@ -65,13 +71,13 @@ function gameLoop() {
       sendToServer(JSON.stringify(currentData));
     }
     previousData = currentData;
-
-    if (!ws) {
-      httpGet();
-    }
-
-    requestAnimationFrame(gameLoop); //Loop next frame
   }
+
+  if (!ws) {
+    httpGet();
+  }
+
+  requestAnimationFrame(gameLoop); //Loop next frame
 }
 
 function onMessage(message: string) {

@@ -53,8 +53,13 @@ function changeProtocol() {
   if (checkBox) {
     ws = checkBox.checked;
   }
+}
 
-  console.log(ws);
+function changeSpectator() {
+  let checkBox = <HTMLInputElement>document.getElementById("spectatorCheck");
+  if (checkBox) {
+    spectator = checkBox.checked;
+  }
 }
 
 function changeURL() {
