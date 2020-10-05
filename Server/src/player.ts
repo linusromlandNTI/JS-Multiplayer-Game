@@ -11,8 +11,10 @@ export class Player {
   d: boolean = false;
   shift: boolean = false;
 
-  constructor(name: string) {
+  constructor(name: string, x: number, y: number) {
     this.name = name;
+    this.x = x;
+    this.y = y;
 
     //this.id = Math.random().toString(36).slice(2).toString();
 

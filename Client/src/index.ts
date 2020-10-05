@@ -22,16 +22,24 @@ function onHtmlLoad() {
 
 //Start game loop
 async function start() {
-  let joinMenu = document.getElementById("joinMenu")
-  if(joinMenu){
+  let usernameInput = <HTMLInputElement>document.getElementById("username");
+  username = usernameInput.value;
+  
+  if (username == "" || username == null) {
+    window.alert("Choose a username");
+    return;
+  }
+
+  let joinMenu = document.getElementById("joinMenu");
+  if (joinMenu) {
     joinMenu.style.display = "none";
   }
 
-  let mainCanvas = document.getElementById("mainCanvas")
-  if(mainCanvas){
+  let mainCanvas = document.getElementById("mainCanvas");
+  if (mainCanvas) {
     mainCanvas.style.display = "block";
   }
-  
+
   if (ws) {
     await wsConnect();
   }
@@ -46,9 +54,7 @@ function gameLoop() {
   let usernameInput = <HTMLInputElement>document.getElementById("username");
   username = usernameInput.value;
 
-  if (username == "") {
-    window.alert("Choose a username");
-  } else {
+  if (username != "" && username != null) {
     var currentData = {
       info: { name: username },
       input: { w: w, a: a, s: s, d: d, shift: shift },

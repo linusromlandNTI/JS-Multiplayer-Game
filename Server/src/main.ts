@@ -28,7 +28,7 @@ export function onMessage(message: string) {
 
 export function onJoin(name: string) {
   console.log("New player!");
-  players.push(new Player(name));
+  players.push(new Player(name, Math.random()*(areaW-playerW), Math.random()*(areaH-playerH)));
 }
 
 export function onLoop() {

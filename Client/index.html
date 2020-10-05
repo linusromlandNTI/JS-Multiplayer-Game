@@ -24,18 +24,22 @@
       <p>
         Default urls:<br />wss://cloudremover.com:8069<br />https://node.cloudremover.com
       </p>
+
       <input
         id="url"
         type="url"
         oninput="changeURL()"
         placeholder="Server URL"
         style="width: 200px"
+        required
       />
       <input
         id="username"
         type="text"
+        maxlength="15"
         placeholder="Username"
         style="width: 200px"
+        required
       />
 
       <br />
