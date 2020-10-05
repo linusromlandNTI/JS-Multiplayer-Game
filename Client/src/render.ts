@@ -1,8 +1,13 @@
-let pWidth = 20;
-let pHeight = 20;
-
 function render(message: string) {
+  let jsonMessage = JSON.parse(message);
+
   var c = <HTMLCanvasElement>document.getElementById("mainCanvas");
+  c.width = jsonMessage.info.areaW;
+  c.height = jsonMessage.info.areaH;
+
+  let pWidth = jsonMessage.info.playerW;
+  let pHeight = jsonMessage.info.playerH;
+
   var ctx = c.getContext("2d");
 
   if (ctx) {
@@ -11,8 +16,6 @@ function render(message: string) {
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
 
-    let jsonMessage = JSON.parse(message);
-
     //console.log("render message: " + message + "len" + jsonMessage.players[2].name);
 
     for (let i = 0; i < jsonMessage.players.length; i++) {
@@ -20,13 +23,9 @@ function render(message: string) {
 
       let name = player.name;
       if (name.length > 15) name = name.substr(0, 15);
-      ctx.fillText(name, player.x+(pWidth/2), player.y-(pHeight/2)); 
+      ctx.fillText(name, player.x + pWidth / 2, player.y - pHeight / 2);
 
       drawRect(ctx, player.x, player.y, pWidth, pHeight);
-
-      
-
-      
     }
   }
 }

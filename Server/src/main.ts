@@ -1,8 +1,13 @@
 import { Player } from "./classes";
 
 export let players: Array<Player> = [];
-
 export let outData = "";
+
+let areaW = 1000;
+let areaH = 500;
+
+let playerW = 20;
+let playerH = 20;
 
 export function onMessage(message: string) {
   let inputs = JSON.parse(message);
@@ -16,6 +21,7 @@ export function onMessage(message: string) {
       players[i].a = inputs.input.a;
       players[i].s = inputs.input.s;
       players[i].d = inputs.input.d;
+      players[i].shift = inputs.input.shift;
     }
   }
 }
@@ -28,16 +34,24 @@ export function onJoin(name: string) {
 export function onLoop() {
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
-    if (player.w) player.y -= 1;
-    if (player.a) player.x -= 1;
-    if (player.s) player.y += 1;
-    if (player.d) player.x += 1;
+    let speed = 1;
+    if (player.shift) speed = 10;
+
+    if (player.w) player.y -= speed;
+    if (player.a) player.x -= speed;
+    if (player.s) player.y += speed;
+    if (player.d) player.x += speed;
+
+    player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
+    player.y = Math.min(Math.max(player.y, 0), areaH - playerH);
   }
+
   outData = generateJson();
 }
 
 function generateJson(): string {
   let currentData = {
+    info: { areaW: areaW, areaH: areaH, playerW: playerW, playerH: playerH },
     players: [{ name: "tmp", x: 1, y: 1 }],
   };
 

@@ -9,6 +9,7 @@ export class Player {
   a: boolean = false;
   s: boolean = false;
   d: boolean = false;
+  shift: boolean = false;
 
   constructor(name: string) {
     this.name = name;

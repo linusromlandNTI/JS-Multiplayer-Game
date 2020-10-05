@@ -41,7 +41,7 @@ function gameLoop() {
   } else {
     var currentData = {
       info: { name: username },
-      input: { w: w, a: a, s: s, d: d },
+      input: { w: w, a: a, s: s, d: d, shift: shift },
     };
 
     //Optimisation to only send data if data is different from last data sent

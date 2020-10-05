@@ -2,10 +2,11 @@ let w = false;
 let a = false;
 let s = false;
 let d = false;
+let shift = false;
 
 //Checking for key inputs
 document.addEventListener("keydown", function (event) {
-  switch (event.key) {
+  switch (event.key.toLowerCase()) {
     case "w":
       w = true;
       break;
@@ -18,11 +19,17 @@ document.addEventListener("keydown", function (event) {
     case "d":
       d = true;
       break;
+    case "d":
+      d = true;
+      break;
+    case "shift":
+      shift = true;
+      break;
   }
 });
 
 document.addEventListener("keyup", function (event) {
-  switch (event.key) {
+  switch (event.key.toLowerCase()) {
     case "w":
       w = false;
       break;
@@ -34,6 +41,9 @@ document.addEventListener("keyup", function (event) {
       break;
     case "d":
       d = false;
+      break;
+    case "shift":
+      shift = false;
       break;
   }
 });
