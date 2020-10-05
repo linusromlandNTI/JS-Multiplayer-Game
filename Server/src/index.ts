@@ -1,10 +1,12 @@
 import { Ws, Http } from "./classes";
-import { onMessage, onJoin, onLoop, players, data } from "./main";
+import { onMessage, onJoin, onLoop, players, outData } from "./main";
 
 let ws;
 let http;
 createHttpServer();
 createWsServer();
+
+setInterval(onLoop, 15)
 
 function createHttpServer() {
   http = new Http(8080);
@@ -16,7 +18,7 @@ function createHttpServer() {
 
   http.app.get("/", (req, res) => {
     res.setHeader("Content-Type", "application/json");
-    res.send(JSON.stringify(data));
+    res.send(outData);
   });
 }
 
@@ -27,7 +29,7 @@ function createWsServer() {
     setInterval(sendMessage, 15);
 
     function sendMessage() {
-      wsLib.send(JSON.stringify(data));
+      wsLib.send(outData);
     }
 
     wsLib.on("message", (message: string) => {
