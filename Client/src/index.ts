@@ -22,6 +22,16 @@ function onHtmlLoad() {
 
 //Start game loop
 async function start() {
+  let joinMenu = document.getElementById("joinMenu")
+  if(joinMenu){
+    joinMenu.style.display = "none";
+  }
+
+  let mainCanvas = document.getElementById("mainCanvas")
+  if(mainCanvas){
+    mainCanvas.style.display = "block";
+  }
+  
   if (ws) {
     await wsConnect();
   }

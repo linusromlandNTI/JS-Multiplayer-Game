@@ -4,27 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cool Game</title>
-    <script>var exports = {};</script>
+    <script>
+      var exports = {};
+    </script>
     <script src="dist/index.js"></script>
     <script src="dist/input.js"></script>
     <script src="dist/http.js"></script>
     <script src="dist/ws.js"></script>
     <script src="dist/render.js"></script>
 
-    <link rel="icon" type="image/jpg" href="https://cloudremover.com/favicon.ico"/>
+    <link
+      rel="icon"
+      type="image/jpg"
+      href="https://cloudremover.com/favicon.ico"
+    />
   </head>
   <body onload="onHtmlLoad()">
-    <p>Press here, then press keys</p>
+    <div id="joinMenu">
+      <p>
+        Default urls:<br />wss://cloudremover.com:8069<br />https://node.cloudremover.com
+      </p>
+      <input
+        id="url"
+        type="url"
+        oninput="changeURL()"
+        placeholder="Server URL"
+        style="width: 200px"
+      />
+      <input
+        id="username"
+        type="text"
+        placeholder="Username"
+        style="width: 200px"
+      />
 
-    <p>Default urls:<br>wss://cloudremover.com:8069<br>https://node.cloudremover.com</p>
-    <input id="url" type="url" oninput="changeURL()" placeholder="Server URL" style="width: 200px"/>
-    <input id="username" type="text" placeholder="Username" style="width: 200px"/>
+      <br />
+      <input type="checkbox" id="protocolCheck" onclick="changeProtocol()" />
+      <a>WS (else HTTP)</a>
+      <br />
+      <button type="button" onclick="start()">Connect</button>
+    </div>
 
-    <br>
-    <input type="checkbox" id="protocolCheck" onclick="changeProtocol()">WS (else HTTP)</input>
-    <br>
-    <button type="button" onclick="start()">Connect</button>
-    <br>
-    <canvas id="mainCanvas" width="1000" height="800" style="background-color: burlywood"></canvas>
+    <canvas
+      id="mainCanvas"
+      style="background-color: burlywood; display: none"
+    ></canvas>
   </body>
 </html>

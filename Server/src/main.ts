@@ -3,8 +3,8 @@ import { Player } from "./classes";
 export let players: Array<Player> = [];
 export let outData = "";
 
-let areaW = 1000;
-let areaH = 500;
+let areaW = 1500;
+let areaH = 800;
 
 let playerW = 20;
 let playerH = 20;
