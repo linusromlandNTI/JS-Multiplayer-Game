@@ -7,6 +7,12 @@
   "gameWidth": 1500,
   "gameHeight": 800,
 
+  "playerWidth": 27,
+  "playerHeight": 54,
+
+  "bulletWidth": 20,
+  "bulletHeight": 20,
+
   "staminaMax": 100,
   "staminaRefill": 1,
   "staminaUse": 1,

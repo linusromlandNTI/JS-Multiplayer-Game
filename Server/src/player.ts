@@ -1,6 +1,3 @@
-import fs from "fs";
-import { config } from "process";
-
 export class Player {
   
   name: string;

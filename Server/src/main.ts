@@ -1,3 +1,4 @@
+import { config } from "process";
 import { Player, Bullet } from "./classes";
 
 export let players: Array<Player> = [];
@@ -5,12 +6,6 @@ export let bullets: Array<Bullet> = [];
 export let outData = "";
 let startTime = Date.now();
 let gameConfig = require("../gameConfig.json");
-
-let areaW = gameConfig.gameWidth;
-let areaH = gameConfig.gameHeight;
-
-let playerW = 30;
-let playerH = 54;
 
 let gameTime = gameConfig.roundTime;
 
@@ -39,8 +34,8 @@ export function onJoin(name: string) {
   players.push(
     new Player(
       name,
-      Math.random() * (areaW - playerW),
-      Math.random() * (areaH - playerH)
+      Math.random() * (gameConfig.gameWidth - gameConfig.playerWidth),
+      Math.random() * (gameConfig.gameHeight - gameConfig.playerHeight)
     )
   );
 }
@@ -55,6 +50,20 @@ export function onLoop() {
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].x += bullets[i].xSpeed;
     bullets[i].y += bullets[i].ySpeed;
+
+    let bullet = bullets[i];
+
+    for (let i = 0; i < players.length; i++) {
+      let player = players[i];
+      if (
+        bullet.x < player.x + gameConfig.playerWidth &&
+        bullet.x + gameConfig.bulletWidth > player.x &&
+        bullet.y < player.y + gameConfig.playerHeight &&
+        bullet.y + gameConfig.bulletHeight > player.y
+      ) {
+        console.log("Collision!")
+      }
+    }
   }
 
   for (let i = 0; i < players.length; i++) {
@@ -83,12 +92,12 @@ export function onLoop() {
       moving = true;
     }
 
-    if(player.mouseDown && player.canShoot){
+    if (player.mouseDown && player.canShoot) {
       let deltaX = player.mouseX - player.x;
       let deltaY = player.mouseY - player.y;
       let rad = Math.atan2(deltaY, deltaX);
 
-      let randomnessRad = rad + ((Math.random() - 0.5) * gameConfig.randomAim)
+      let randomnessRad = rad + (Math.random() - 0.5) * gameConfig.randomAim;
 
       let speedX = Math.cos(randomnessRad) * gameConfig.bulletSpeed;
       let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;
@@ -96,8 +105,8 @@ export function onLoop() {
       bullets.push(new Bullet(player.x, player.y, speedX, speedY));
 
       player.canShoot = false;
-      
-      setTimeout(returnBullet, gameConfig.bulletRefill, player)
+
+      setTimeout(returnBullet, gameConfig.bulletRefill, player);
     }
 
     if (moving && player.shift && player.stamina > -2) {
@@ -107,8 +116,14 @@ export function onLoop() {
         player.stamina = player.stamina + gameConfig.staminaRefill;
     }
 
-    player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
-    player.y = Math.min(Math.max(player.y, 0), areaH - playerH);
+    player.x = Math.min(
+      Math.max(player.x, 0),
+      gameConfig.gameWidth - gameConfig.playerWidth
+    );
+    player.y = Math.min(
+      Math.max(player.y, 0),
+      gameConfig.gameHeight - gameConfig.playerHeight
+    );
   }
 
   outData = generateJson();
@@ -121,10 +136,12 @@ function returnBullet(player: Player) {
 function generateJson(): string {
   let currentData = {
     info: {
-      areaW: areaW,
-      areaH: areaH,
-      playerW: playerW,
-      playerH: playerH,
+      areaW: gameConfig.gameWidth,
+      areaH: gameConfig.gameHeight,
+      playerW: gameConfig.playerWidth,
+      playerH: gameConfig.playerHeight,
+      bulletW: gameConfig.bulletWidth,
+      bulletH: gameConfig.bulletHeight,
       time: gameTime - (Date.now() - startTime),
     },
     players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1 }],
