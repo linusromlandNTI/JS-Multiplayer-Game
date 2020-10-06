@@ -88,7 +88,7 @@ export function onLoop() {
       let deltaY = player.mouseY - player.y;
       let rad = Math.atan2(deltaY, deltaX);
 
-      let randomnessRad = rad + ((Math.random() - 0.5) / 50)
+      let randomnessRad = rad + ((Math.random() - 0.5) / gameConfig.randomAim)
 
       let speedX = Math.cos(randomnessRad) * gameConfig.bulletSpeed;
       let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;

@@ -17,6 +17,8 @@
   "speedSprint": 10,
 
   "bulletSpeed": 20,
-  "bulletRefill": 500
+  "bulletRefill": 500,
+
+  "randomAim": 50
 
 }
