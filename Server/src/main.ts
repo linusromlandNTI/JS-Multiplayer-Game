@@ -1,6 +1,7 @@
-import { Player } from "./classes";
+import { Player, Bullet } from "./classes";
 
 export let players: Array<Player> = [];
+export let bullets: Array<Bullet> = [];
 export let outData = "";
 let startTime = Date.now();
 
@@ -43,8 +44,19 @@ export function onJoin(name: string) {
 export function onLoop() {
   if (Date.now() >= startTime + gameTime) {
     players = [];
+    bullets = [];
     startTime = Date.now();
   }
+
+  bullets.push(
+    new Bullet(
+      Math.random() * (areaW - playerW),
+      Math.random() * (areaH - playerH),
+      Math.random() * (areaH - playerH),
+      Math.random() * (areaH - playerH),
+      Math.random() * (areaH - playerH)
+    )
+  );
 
   for (let i = 0; i < players.length; i++) {
     let player = players[i];

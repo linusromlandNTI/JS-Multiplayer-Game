@@ -1,0 +1,12 @@
+{
+  "roundTime": 30000,
+
+  "gameWidth": 800,
+  "gameHeight": 1500,
+
+  "staminaMax": 100,
+  "staminaRefill": 1,
+  "staminaUse": 1,
+
+  "health": 100
+}
