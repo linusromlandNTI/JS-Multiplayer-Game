@@ -29,7 +29,7 @@ function render(message: string) {
     for (let i = 0; i < jsonMessage.players.length; i++) {
       let player = jsonMessage.players[i];
 
-      let name = player.name + " " + player.stamina;
+      let name = player.name + "\n" + player.stamina;
       //Limit name to 15 characters
       if (name.length > 15) name = name.substr(0, 15);
       //Draw name
