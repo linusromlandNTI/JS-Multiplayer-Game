@@ -2,12 +2,15 @@ import { Player } from "./classes";
 
 export let players: Array<Player> = [];
 export let outData = "";
+let startTime = Date.now();
 
 let areaW = 1500;
 let areaH = 800;
 
 let playerW = 30;
 let playerH = 54;
+
+let gameTime = 180000;
 
 export function onMessage(message: string) {
   let inputs = JSON.parse(message);
@@ -38,38 +41,42 @@ export function onJoin(name: string) {
 }
 
 export function onLoop() {
+  if (Date.now() >= startTime + gameTime) {
+    players = [];
+    startTime = Date.now();
+  }
+
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
     let speed = 1;
     let moving = false;
     if (player.shift && player.stamina > 0) speed = 10;
 
-    if (player.w){
+    if (player.w) {
       player.y -= speed;
       moving = true;
-    } 
+    }
 
-    if (player.a){
+    if (player.a) {
       player.x -= speed;
       moving = true;
-    } 
+    }
 
-    if (player.s){
+    if (player.s) {
       player.y += speed;
       moving = true;
-    } 
+    }
 
-    if (player.d){
+    if (player.d) {
       player.x += speed;
       moving = true;
-    } 
+    }
 
-    if(moving && player.shift && player.stamina > -2 ){
-      player.stamina = player.stamina - 1
-    } 
-    else{
-      if(!(player.stamina >= 100)) player.stamina = player.stamina + 0.4
-    } 
+    if (moving && player.shift && player.stamina > -2) {
+      player.stamina = player.stamina - 1;
+    } else {
+      if (!(player.stamina >= 100)) player.stamina = player.stamina + 0.4;
+    }
 
     player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
     player.y = Math.min(Math.max(player.y, 0), areaH - playerH);
@@ -89,7 +96,7 @@ function generateJson(): string {
       name: players[i].name,
       x: players[i].x,
       y: players[i].y,
-      stamina: players[i].stamina
+      stamina: players[i].stamina,
     });
   }
 
