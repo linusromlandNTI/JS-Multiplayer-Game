@@ -28,7 +28,7 @@ function render(message: string) {
     //Loop through list of players and draw everyone
     for (let i = 0; i < jsonMessage.players.length; i++) {
       let player = jsonMessage.players[i];
-
+      if(player.stamina < 0) player.stamina = 0
       let name = player.name + "\n" + player.stamina;
       //Limit name to 15 characters
       if (name.length > 15) name = name.substr(0, 15);

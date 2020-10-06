@@ -68,7 +68,7 @@ export function onLoop() {
       player.stamina = player.stamina - 1
     } 
     else{
-      if(!(player.stamina >= 100)) player.stamina = player.stamina + 1
+      if(!(player.stamina >= 100)) player.stamina = player.stamina + 0.4
     } 
 
     player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
