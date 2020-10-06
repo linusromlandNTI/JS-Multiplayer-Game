@@ -21,21 +21,20 @@ function render(message: string) {
     //Clear canvas
     ctx.clearRect(0, 0, c.width, c.height);
 
-    //Set font defaults
-    ctx.font = "30px Arial";
-    ctx.textAlign = "center";
-
-    //Draw timer
-    ctx.fillText(
-      (jsonMessage.info.time / 1000).toFixed().toString(),
-      c.width / 2,
-      30
-    );
-
-    console.log(jsonMessage.info.inGame)
+    console.log(jsonMessage.info.inGame);
 
     //Draw game or lobby depending on game state
     if (jsonMessage.info.inGame) {
+      ctx.font = "30px Arial";
+      ctx.textAlign = "center";
+
+      //Draw timer
+      ctx.fillText(
+        (jsonMessage.info.time / 1000).toFixed().toString(),
+        c.width / 2,
+        30
+      );
+
       //Loop through list of players and draw everyone
       for (let i = 0; i < jsonMessage.players.length; i++) {
         let player = jsonMessage.players[i];
@@ -97,7 +96,7 @@ function render(message: string) {
         drawPlayer(
           ctx,
           player,
-          i*(pWidth + 50) + 50,
+          i * (pWidth + 50) + 50,
           50,
           pWidth,
           pHeight,
@@ -123,20 +122,16 @@ function drawPlayer(
   drawHealth: boolean
 ) {
   //Draw name
-  ctx.font = "16px Arial";
-  ctx.fillText(player.name, x + width / 2, y - 10);
+  if (drawName) {
+    ctx.font = "16px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(player.name, x + width / 2, y - 10);
+  }
+
   //Draw health bar
   if (drawHealth) {
     drawRect(ctx, x, y - 6, width, 4, false, "black");
-    drawRect(
-      ctx,
-      x,
-      y - 6,
-      width * (player.health / 100),
-      4,
-      true,
-      "red"
-    );
+    drawRect(ctx, x, y - 6, width * (player.health / 100), 4, true, "red");
   }
 
   //Draw player as image
