@@ -53,7 +53,6 @@ export function onLoop() {
       Math.random() * (areaW - playerW),
       Math.random() * (areaH - playerH),
       Math.random() * (areaH - playerH),
-      Math.random() * (areaH - playerH),
       Math.random() * (areaH - playerH)
     )
   );
