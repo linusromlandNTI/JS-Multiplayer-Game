@@ -54,10 +54,10 @@ export function onLoop() {
     let bullet = bullets[i];
 
     if (
-      bullet.x < 0 ||
-      bullet.x > gameConfig.gameWidth ||
-      bullet.y < 0 ||
-      bullet.y > gameConfig.gameHeight
+      bullet.x < -100 ||
+      bullet.x > gameConfig.gameWidth + 100 ||
+      bullet.y < -100 ||
+      bullet.y > gameConfig.gameHeight + 100
     ) {
       bullets.splice(i, 1);
     }
@@ -71,11 +71,11 @@ export function onLoop() {
         bullet.y < player.y + gameConfig.playerHeight &&
         bullet.y + gameConfig.bulletHeight > player.y
       ) {
-        bullets.splice(i, 1);
-
-        player.health -= gameConfig.bulletDamage;
         if (player.health <= 0) {
           player.dead = true;
+        } else {
+          player.health -= gameConfig.bulletDamage;
+          bullets.splice(i, 1);
         }
       }
     }
@@ -143,7 +143,6 @@ export function onLoop() {
       gameConfig.gameHeight - gameConfig.playerHeight
     );
   }
-
   outData = generateJson();
 }
 
