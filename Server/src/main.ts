@@ -64,7 +64,7 @@ export function onLoop() {
       moving = true;
     } 
 
-    if(moving && player.shift && player.stamina > 0 ){
+    if(moving && player.shift && player.stamina > -2 ){
       player.stamina = player.stamina - 1
     } 
     else{
