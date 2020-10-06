@@ -19,6 +19,6 @@
   "bulletSpeed": 20,
   "bulletRefill": 500,
 
-  "randomAim": 1
+  "randomAim": 0.05
 
 }
