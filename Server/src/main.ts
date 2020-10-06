@@ -41,12 +41,35 @@ export function onLoop() {
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
     let speed = 1;
-    if (player.shift) speed = 10;
+    let moving = false;
+    if (player.shift && player.stamina > 0) speed = 10;
 
-    if (player.w) player.y -= speed;
-    if (player.a) player.x -= speed;
-    if (player.s) player.y += speed;
-    if (player.d) player.x += speed;
+    if (player.w){
+      player.y -= speed;
+      moving = true;
+    } 
+
+    if (player.a){
+      player.x -= speed;
+      moving = true;
+    } 
+
+    if (player.s){
+      player.y += speed;
+      moving = true;
+    } 
+
+    if (player.d){
+      player.x += speed;
+      moving = true;
+    } 
+
+    if(moving && player.shift){
+      player.stamina = player.stamina - 1
+    } 
+    else{
+      if(!(player.stamina >= 100)) player.stamina = player.stamina + 1
+    } 
 
     player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
     player.y = Math.min(Math.max(player.y, 0), areaH - playerH);

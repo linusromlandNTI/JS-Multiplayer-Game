@@ -4,6 +4,8 @@ export class Player {
 
   x: number = 0;
   y: number = 0;
+  stamina: number = 100;
+
 
   w: boolean = false;
   a: boolean = false;
