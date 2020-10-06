@@ -16,6 +16,7 @@
   "speedBase": 2,
   "speedSprint": 10,
 
-  "bulletSpeed": 50
+  "bulletSpeed": 20,
+  "bulletRefill": 500
 
 }

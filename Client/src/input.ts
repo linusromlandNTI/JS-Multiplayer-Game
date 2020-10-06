@@ -33,18 +33,6 @@ function changeKey(keyPressed: string, down: boolean) {
   }
 }
 
-document.addEventListener(
-  "mousemove",
-  function (event) {
-    var canvas = document.getElementById("mainCanvas");
-    if (canvas) {
-      var mousePos = getMousePos(canvas, event);
-      console.log("Mouse position: " + mousePos.x + "," + mousePos.y);
-    }
-  },
-  false
-);
-
 document.addEventListener("mousedown", (e) => {
   mouseDown = true;
 });
@@ -53,13 +41,18 @@ document.addEventListener("mouseup", (e) => {
   mouseDown = false;
 });
 
-function getMousePos(canvas: HTMLElement, event: MouseEvent) {
-  var rect = canvas.getBoundingClientRect();
-  return {
-    x: event.clientX - rect.left,
-    y: event.clientY - rect.top,
-  };
-}
+document.addEventListener(
+  "mousemove",
+  function (event) {
+    var canvas = document.getElementById("mainCanvas");
+    if (canvas) {
+      var rect = canvas.getBoundingClientRect();
+      mouseX = event.clientX - rect.left;
+      mouseY = event.clientY - rect.top;
+    }
+  },
+  false
+);
 
 //Change states from input field inputs
 function changeProtocol() {

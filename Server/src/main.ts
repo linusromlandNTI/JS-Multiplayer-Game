@@ -29,13 +29,8 @@ export function onMessage(message: string) {
       player.shift = keyboardInput.shift;
 
       player.mouseX = mouseInput.x;
-      player.mouseY = mouseInput.Y;
+      player.mouseY = mouseInput.y;
       player.mouseDown = mouseInput.mouseDown;
-
-      let deltaX = player.mouseX - player.x;
-      let deltaY = player.mouseY - player.y;
-      let rad = Math.atan2(deltaY, deltaX); // In radians
-      console.log(rad);
     }
   }
 }
@@ -88,6 +83,21 @@ export function onLoop() {
       moving = true;
     }
 
+    if(player.mouseDown && player.canShoot){
+      let deltaX = player.mouseX - player.x;
+      let deltaY = player.mouseY - player.y;
+      let rad = Math.atan2(deltaY, deltaX);
+
+      let speedX = Math.cos(rad) * gameConfig.bulletSpeed;
+      let speedY = Math.sin(rad) * gameConfig.bulletSpeed;
+
+      bullets.push(new Bullet(player.x, player.y, speedX, speedY));
+
+      player.canShoot = false;
+      
+      setTimeout(returnBullet, gameConfig.bulletRefill, player)
+    }
+
     if (moving && player.shift && player.stamina > -2) {
       player.stamina = player.stamina - gameConfig.staminaUse;
     } else {
@@ -97,20 +107,13 @@ export function onLoop() {
 
     player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
     player.y = Math.min(Math.max(player.y, 0), areaH - playerH);
-
-    if (Math.random() > 0.9) {
-      bullets.push(
-        new Bullet(
-          player.x,
-          player.y,
-          (Math.random() * (areaH - playerH)) / 100,
-          (Math.random() * (areaH - playerH)) / 100
-        )
-      );
-    }
   }
 
   outData = generateJson();
+}
+
+function returnBullet(player: Player) {
+  player.canShoot = true;
 }
 
 function generateJson(): string {
