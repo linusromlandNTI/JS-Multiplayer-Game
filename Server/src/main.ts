@@ -64,6 +64,7 @@ export function onLoop() {
       ) {
         console.log("Collision!");
         bullets.splice(i, 1);
+        player.health -= gameConfig.bulletDamage;
       }
     }
   }
