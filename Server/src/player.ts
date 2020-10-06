@@ -19,6 +19,7 @@ export class Player {
   mouseDown: boolean = false;
 
   canShoot = true;
+  dead = false;
 
   constructor(name: string, x: number, y: number) {
     this.name = name;

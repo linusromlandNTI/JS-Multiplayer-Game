@@ -53,6 +53,15 @@ export function onLoop() {
 
     let bullet = bullets[i];
 
+    if (
+      bullet.x < 0 ||
+      bullet.x > gameConfig.gameWidth ||
+      bullet.y < 0 ||
+      bullet.y > gameConfig.gameHeight
+    ) {
+      bullets.splice(i, 1);
+    }
+
     for (let j = 0; j < players.length; j++) {
       let player = players[j];
       if (
@@ -62,15 +71,21 @@ export function onLoop() {
         bullet.y < player.y + gameConfig.playerHeight &&
         bullet.y + gameConfig.bulletHeight > player.y
       ) {
-        console.log("Collision!");
         bullets.splice(i, 1);
+
         player.health -= gameConfig.bulletDamage;
+        if (player.health <= 0) {
+          player.dead = true;
+        }
       }
     }
   }
 
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
+
+    if (player.dead) continue;
+
     let speed = gameConfig.speedBase;
     let moving = false;
     if (player.shift && player.stamina > 0) speed = gameConfig.speedSprint;
@@ -147,7 +162,7 @@ function generateJson(): string {
       bulletH: gameConfig.bulletHeight,
       time: gameTime - (Date.now() - startTime),
     },
-    players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1 }],
+    players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false }],
     bullets: [{ x: 1, y: 1 }],
   };
 
@@ -158,6 +173,7 @@ function generateJson(): string {
       y: players[i].y,
       stamina: players[i].stamina,
       health: players[i].health,
+      dead: players[i].dead,
     });
   }
 
@@ -168,8 +184,8 @@ function generateJson(): string {
     });
   }
 
-  currentData.players.shift(); //Removes template data, TODO: make it without this
-  currentData.bullets.shift(); //Removes template data, TODO: make it without this
+  currentData.players.shift();
+  currentData.bullets.shift();
 
   return JSON.stringify(currentData);
 }
