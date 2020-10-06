@@ -72,14 +72,19 @@ function gameLoop() {
     let usernameInput = <HTMLInputElement>document.getElementById("username");
     username = usernameInput.value;
 
-    var currentData = {
+    let currentData = {
       info: { name: username },
-      input: {
+      keyboardInput: {
         w: keys[0][1],
         a: keys[1][1],
         s: keys[2][1],
         d: keys[3][1],
         shift: keys[4][1],
+      },
+      mouseInput: {
+        x: mouseX,
+        y: mouseY,
+        mouseDown: mouseDown,
       },
     };
 

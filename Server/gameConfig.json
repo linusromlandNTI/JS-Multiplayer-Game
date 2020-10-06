@@ -1,4 +1,7 @@
 {
+  "authKey": "/etc/letsencrypt/live/cloudremover.com/privkey.pem",
+  "authCert": "/etc/letsencrypt/live/cloudremover.com/cert.pem",
+
   "roundTime": 30000,
 
   "gameWidth": 1500,
@@ -11,5 +14,8 @@
   "health": 100,
 
   "speedBase": 2,
-  "speedSprint": 10
+  "speedSprint": 10,
+
+  "bulletSpeed": 50
+
 }

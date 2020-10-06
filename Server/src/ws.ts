@@ -3,9 +3,12 @@ import fs from "fs";
 import https from "https";
 
 export class Ws {
+
+  gameConfig = require("../gameConfig.json");
+
   httpsServer = https.createServer({
-    key: fs.readFileSync("/etc/letsencrypt/live/cloudremover.com/privkey.pem"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/cloudremover.com/cert.pem"),
+    key: fs.readFileSync(this.gameConfig.authKey),
+    cert: fs.readFileSync(this.gameConfig.authCert),
   });
 
   wss: WebSocket.Server;

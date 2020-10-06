@@ -7,6 +7,10 @@ let keys = [
   ["shift", false],
 ];
 
+let mouseX: number = 0;
+let mouseY: number = 0;
+let mouseDown: boolean = false;
+
 //Checking for key presses
 document.addEventListener("keydown", function (event) {
   let keyPressed = event.key.toLowerCase();
@@ -29,24 +33,31 @@ function changeKey(keyPressed: string, down: boolean) {
   }
 }
 
-var canvas = document.getElementById("myCanvas");
-
-canvas?.addEventListener(
+document.addEventListener(
   "mousemove",
-  function (evt) {
+  function (event) {
+    var canvas = document.getElementById("mainCanvas");
     if (canvas) {
-      var mousePos = getMousePos(canvas, evt);
+      var mousePos = getMousePos(canvas, event);
       console.log("Mouse position: " + mousePos.x + "," + mousePos.y);
     }
   },
   false
 );
 
-function getMousePos(canvas: HTMLElement, evt: MouseEvent) {
+document.addEventListener("mousedown", (e) => {
+  mouseDown = true;
+});
+
+document.addEventListener("mouseup", (e) => {
+  mouseDown = false;
+});
+
+function getMousePos(canvas: HTMLElement, event: MouseEvent) {
   var rect = canvas.getBoundingClientRect();
   return {
-    x: evt.clientX - rect.left,
-    y: evt.clientY - rect.top,
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top,
   };
 }
 

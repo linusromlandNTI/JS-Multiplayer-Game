@@ -18,6 +18,10 @@ export class Player {
   d: boolean = false;
   shift: boolean = false;
 
+  mouseX: number = 0;
+  mouseY: number = 0;
+  mouseDown: boolean = false;
+
   constructor(name: string, x: number, y: number) {
     this.name = name;
     this.x = x;

@@ -18,12 +18,24 @@ export function onMessage(message: string) {
   let inputs = JSON.parse(message);
 
   for (let i = 0; i < players.length; i++) {
-    if (players[i].name == inputs.info.name) {
-      players[i].w = inputs.input.w;
-      players[i].a = inputs.input.a;
-      players[i].s = inputs.input.s;
-      players[i].d = inputs.input.d;
-      players[i].shift = inputs.input.shift;
+    let player = players[i];
+    let keyboardInput = inputs.keyboardInput;
+    let mouseInput = inputs.mouseInput;
+    if (player.name == inputs.info.name) {
+      player.w = keyboardInput.w;
+      player.a = keyboardInput.a;
+      player.s = keyboardInput.s;
+      player.d = keyboardInput.d;
+      player.shift = keyboardInput.shift;
+
+      player.mouseX = mouseInput.x;
+      player.mouseY = mouseInput.Y;
+      player.mouseDown = mouseInput.mouseDown;
+
+      let deltaX = player.mouseX - player.x;
+      let deltaY = player.mouseY - player.y;
+      let rad = Math.atan2(deltaY, deltaX); // In radians
+      console.log(rad);
     }
   }
 }
@@ -45,11 +57,9 @@ export function onLoop() {
     startTime = Date.now();
   }
 
-  
-
-  for(let i = 0; i < bullets.length; i++) {
-    bullets[i].x += bullets[i].xSpeed
-    bullets[i].y += bullets[i].ySpeed
+  for (let i = 0; i < bullets.length; i++) {
+    bullets[i].x += bullets[i].xSpeed;
+    bullets[i].y += bullets[i].ySpeed;
   }
 
   for (let i = 0; i < players.length; i++) {
@@ -88,13 +98,13 @@ export function onLoop() {
     player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
     player.y = Math.min(Math.max(player.y, 0), areaH - playerH);
 
-    if(Math.random() > 0.9) {
+    if (Math.random() > 0.9) {
       bullets.push(
         new Bullet(
           player.x,
           player.y,
-          Math.random() * (areaH - playerH) / 100,
-          Math.random() * (areaH - playerH) / 100
+          (Math.random() * (areaH - playerH)) / 100,
+          (Math.random() * (areaH - playerH)) / 100
         )
       );
     }
