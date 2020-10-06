@@ -45,14 +45,21 @@ export function onLoop() {
     startTime = Date.now();
   }
 
-  bullets.push(
-    new Bullet(
-      Math.random() * (areaW - playerW),
-      Math.random() * (areaH - playerH),
-      Math.random() * (areaH - playerH),
-      Math.random() * (areaH - playerH)
-    )
-  );
+  if(Math.random() > 0.9) {
+    bullets.push(
+      new Bullet(
+        Math.random() * (areaW - playerW),
+        Math.random() * (areaH - playerH),
+        Math.random() * (areaH - playerH) / 100,
+        Math.random() * (areaH - playerH) / 100
+      )
+    );
+  }
+
+  for(let i = 0; i < bullets.length; i++) {
+    bullets[i].x += bullets[i].xSpeed
+    bullets[i].y += bullets[i].ySpeed
+  }
 
   for (let i = 0; i < players.length; i++) {
     let player = players[i];

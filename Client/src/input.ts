@@ -28,6 +28,15 @@ function changeKey(keyPressed: string, down: boolean) {
     }
   }
 }
+/*
+function getMousePos(evt) {
+  var c = <HTMLCanvasElement>document.getElementById("mainCanvas");
+  var rect = c.getBoundingClientRect();
+  return {
+    x: evt.clientX - rect.left,
+    y: evt.clientY - rect.top
+  };
+}*/
 
 //Change states from input field inputs
 function changeProtocol() {
