@@ -45,16 +45,7 @@ export function onLoop() {
     startTime = Date.now();
   }
 
-  if(Math.random() > 0.9) {
-    bullets.push(
-      new Bullet(
-        Math.random() * (areaW - playerW),
-        Math.random() * (areaH - playerH),
-        Math.random() * (areaH - playerH) / 100,
-        Math.random() * (areaH - playerH) / 100
-      )
-    );
-  }
+  
 
   for(let i = 0; i < bullets.length; i++) {
     bullets[i].x += bullets[i].xSpeed
@@ -96,6 +87,17 @@ export function onLoop() {
 
     player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
     player.y = Math.min(Math.max(player.y, 0), areaH - playerH);
+
+    if(Math.random() > 0.9) {
+      bullets.push(
+        new Bullet(
+          player.x,
+          player.y,
+          Math.random() * (areaH - playerH) / 100,
+          Math.random() * (areaH - playerH) / 100
+        )
+      );
+    }
   }
 
   outData = generateJson();

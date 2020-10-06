@@ -28,15 +28,27 @@ function changeKey(keyPressed: string, down: boolean) {
     }
   }
 }
-/*
-function getMousePos(evt) {
-  var c = <HTMLCanvasElement>document.getElementById("mainCanvas");
-  var rect = c.getBoundingClientRect();
+
+var canvas = document.getElementById("myCanvas");
+
+canvas?.addEventListener(
+  "mousemove",
+  function (evt) {
+    if (canvas) {
+      var mousePos = getMousePos(canvas, evt);
+      console.log("Mouse position: " + mousePos.x + "," + mousePos.y);
+    }
+  },
+  false
+);
+
+function getMousePos(canvas: HTMLElement, evt: MouseEvent) {
+  var rect = canvas.getBoundingClientRect();
   return {
     x: evt.clientX - rect.left,
-    y: evt.clientY - rect.top
+    y: evt.clientY - rect.top,
   };
-}*/
+}
 
 //Change states from input field inputs
 function changeProtocol() {
