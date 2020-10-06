@@ -97,7 +97,7 @@ function generateJson(): string {
       x: players[i].x,
       y: players[i].y,
       stamina: players[i].stamina,
-      health: players[i].stamina,
+      health: players[i].health,
     });
   }
 
