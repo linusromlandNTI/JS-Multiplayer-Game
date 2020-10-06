@@ -39,7 +39,7 @@ function render(message: string) {
       if (!player.dead) {
         let name = player.name;
 
-        if (name == username) {
+        if (name == username && !spectator) {
           //Draw stamina bar
           drawRect(ctx, 10, 10, 150, 25, false, "black");
           drawRect(
