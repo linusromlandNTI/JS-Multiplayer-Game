@@ -33,7 +33,7 @@ function render(message: string) {
       //Limit name to 15 characters
       if (name.length > 15) name = name.substr(0, 15);
       //Draw name
-      ctx.fillText(name, player.x + pWidth / 2, player.y - pHeight / 2);
+      ctx.fillText(name, player.x + pWidth / 2, player.y - 2);
 
       //Draw player as image
       const image = new Image();
