@@ -88,8 +88,10 @@ export function onLoop() {
       let deltaY = player.mouseY - player.y;
       let rad = Math.atan2(deltaY, deltaX);
 
-      let speedX = Math.cos(rad) * gameConfig.bulletSpeed;
-      let speedY = Math.sin(rad) * gameConfig.bulletSpeed;
+      let randomnessRad = rad * Math.random() / 5
+
+      let speedX = Math.cos(randomnessRad) * gameConfig.bulletSpeed;
+      let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;
 
       bullets.push(new Bullet(player.x, player.y, speedX, speedY));
 
