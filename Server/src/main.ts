@@ -48,9 +48,7 @@ export function onLoop() {
   console.log(inGame);
   if (inGame) {
     if (Date.now() >= startTime + gameTime) {
-      players = [];
-      bullets = [];
-      inGame = false;
+      resetGame();
     }
 
     for (let i = 0; i < bullets.length; i++) {
@@ -87,10 +85,13 @@ export function onLoop() {
       }
     }
 
+    let aliveNum = 0;
     for (let i = 0; i < players.length; i++) {
       let player = players[i];
 
       if (player.dead) continue;
+
+      aliveNum++;
 
       let speed = gameConfig.speedBase;
       let moving = false;
@@ -149,13 +150,27 @@ export function onLoop() {
         gameConfig.gameHeight - gameConfig.playerHeight
       );
     }
+    if (aliveNum <= 1) {
+      resetGame();
+    }
   } else {
     if (players.length >= gameConfig.minPlayers) {
-      inGame = true;
-      startTime = Date.now();
+      setTimeout(startGame, 2000);
+      
     }
   }
   outData = generateJson();
+}
+
+function startGame() {
+  inGame = true;
+      startTime = Date.now();
+}
+
+function resetGame() {
+  players = [];
+  bullets = [];
+  inGame = false;
 }
 
 function returnBullet(player: Player) {
