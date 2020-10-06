@@ -30,21 +30,29 @@ function render(message: string) {
       let player = jsonMessage.players[i];
       if (player.stamina < 0) player.stamina = 0;
       let name = player.name;
+
+      if (name == username) {
+        //Draw stamina bar
+        drawRect(ctx, 10, 10, 150, 25, false, "black");
+        drawRect(ctx, 10, 10, 150 * (player.stamina / 100), 25, true, "green");
+      }
+
       //Limit name to 15 characters
       if (name.length > 15) name = name.substr(0, 15);
       //Draw name
       ctx.fillText(name, player.x + pWidth / 2, player.y - 20);
-      //Draw stamina bar
+      //Draw health bar
       drawRect(ctx, player.x, player.y - 6, pWidth, 4, false, "black");
       drawRect(
         ctx,
         player.x,
         player.y - 6,
-        pWidth * (player.stamina / 100),
+        pWidth * (player.health / 100),
         4,
         true,
-        "green"
+        "red"
       );
+
       //Draw player as image
       const image = new Image();
       image.src = "res/guy.png";

@@ -88,7 +88,7 @@ export function onLoop() {
 function generateJson(): string {
   let currentData = {
     info: { areaW: areaW, areaH: areaH, playerW: playerW, playerH: playerH },
-    players: [{ name: "tmp", x: 1, y: 1, stamina: 1 }],
+    players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1 }],
   };
 
   for (let i = 0; i < players.length; i++) {
@@ -97,6 +97,7 @@ function generateJson(): string {
       x: players[i].x,
       y: players[i].y,
       stamina: players[i].stamina,
+      health: players[i].stamina,
     });
   }
 

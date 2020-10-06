@@ -5,6 +5,7 @@ export class Player {
   x: number = 0;
   y: number = 0;
   stamina: number = 100;
+  health: number = 100;
 
 
   w: boolean = false;
@@ -17,6 +18,8 @@ export class Player {
     this.name = name;
     this.x = x;
     this.y = y;
+
+    this.health = Math.random()*100;
 
     //this.id = Math.random().toString(36).slice(2).toString();
 
