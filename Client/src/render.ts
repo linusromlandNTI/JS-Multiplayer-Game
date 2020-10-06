@@ -25,6 +25,8 @@ function render(message: string) {
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
 
+    ctx.fillText(jsonMessage.info.time, c.width/2, 10)
+
     //Loop through list of players and draw everyone
     for (let i = 0; i < jsonMessage.players.length; i++) {
       let player = jsonMessage.players[i];

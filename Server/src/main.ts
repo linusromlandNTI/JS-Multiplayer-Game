@@ -87,7 +87,7 @@ export function onLoop() {
 
 function generateJson(): string {
   let currentData = {
-    info: { areaW: areaW, areaH: areaH, playerW: playerW, playerH: playerH },
+    info: { areaW: areaW, areaH: areaH, playerW: playerW, playerH: playerH, time: gameTime-(Date.now()-startTime) },
     players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1 }],
   };
 
