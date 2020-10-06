@@ -53,15 +53,17 @@ export function onLoop() {
 
     let bullet = bullets[i];
 
-    for (let i = 0; i < players.length; i++) {
-      let player = players[i];
+    for (let j = 0; j < players.length; j++) {
+      let player = players[j];
       if (
         bullet.x < player.x + gameConfig.playerWidth &&
         bullet.x + gameConfig.bulletWidth > player.x &&
         bullet.y < player.y + gameConfig.playerHeight &&
         bullet.y + gameConfig.bulletHeight > player.y
       ) {
-        console.log("Collision!")
+        console.log("Collision!");
+        bullets.splice(i, 1);
+
       }
     }
   }
