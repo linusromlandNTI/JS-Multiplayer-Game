@@ -26,6 +26,7 @@
   "bulletRefill": 500,
   "bulletDamage": 10,
 
-  "randomAim": 0.05
+  "randomAim": 0.05,
 
+  "minPlayers": 2
 }
