@@ -22,10 +22,11 @@ function render(message: string) {
     ctx.clearRect(0, 0, c.width, c.height);
 
     //Set font defaults
-    ctx.font = "14px Arial";
+    ctx.font = "30px Arial";
     ctx.textAlign = "center";
 
-    ctx.fillText(jsonMessage.info.time, c.width/2, 10)
+    //Draw timer
+    ctx.fillText((jsonMessage.info.time/1000).toFixed().toString(), c.width/2, 30)
 
     //Loop through list of players and draw everyone
     for (let i = 0; i < jsonMessage.players.length; i++) {
@@ -42,7 +43,8 @@ function render(message: string) {
       //Limit name to 15 characters
       if (name.length > 15) name = name.substr(0, 15);
       //Draw name
-      ctx.fillText(name, player.x + pWidth / 2, player.y - 20);
+      ctx.font = "16px Arial";
+      ctx.fillText(name, player.x + pWidth / 2, player.y - 10);
       //Draw health bar
       drawRect(ctx, player.x, player.y - 6, pWidth, 4, false, "black");
       drawRect(

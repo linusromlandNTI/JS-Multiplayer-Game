@@ -10,7 +10,7 @@ let areaH = 800;
 let playerW = 30;
 let playerH = 54;
 
-let gameTime = 180000;
+let gameTime = 30000;
 
 export function onMessage(message: string) {
   let inputs = JSON.parse(message);
