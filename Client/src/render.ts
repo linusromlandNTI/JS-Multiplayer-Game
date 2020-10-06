@@ -26,7 +26,11 @@ function render(message: string) {
     ctx.textAlign = "center";
 
     //Draw timer
-    ctx.fillText((jsonMessage.info.time/1000).toFixed().toString(), c.width/2, 30)
+    ctx.fillText(
+      (jsonMessage.info.time / 1000).toFixed().toString(),
+      c.width / 2,
+      30
+    );
 
     //Loop through list of players and draw everyone
     for (let i = 0; i < jsonMessage.players.length; i++) {
@@ -61,6 +65,11 @@ function render(message: string) {
       const image = new Image();
       image.src = "res/guy.png";
       ctx.drawImage(image, player.x, player.y, pWidth, pHeight);
+    }
+
+    for (let i = 0; i < jsonMessage.bullets.length; i++) {
+      let bullet = jsonMessage.bullets[i];
+      drawRect(ctx, bullet.x, bullet.y - 6, 6, 6, true, "blue");
     }
   }
 }

@@ -1,5 +1,3 @@
-import { textChangeRangeIsUnchanged } from "typescript";
-
 export class Bullet {
 
   x: number = 0;

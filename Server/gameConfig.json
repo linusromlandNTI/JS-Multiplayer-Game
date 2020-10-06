@@ -8,5 +8,8 @@
   "staminaRefill": 1,
   "staminaUse": 1,
 
-  "health": 100
+  "health": 100,
+
+  "speedBase": 2,
+  "speedSprint": 10
 }

@@ -4,20 +4,18 @@ export let players: Array<Player> = [];
 export let bullets: Array<Bullet> = [];
 export let outData = "";
 let startTime = Date.now();
+let gameConfig = require("../gameConfig.json");
 
-let areaW = 1500;
-let areaH = 800;
+let areaW = gameConfig.gameWidth;
+let areaH = gameConfig.gameHeight;
 
 let playerW = 30;
 let playerH = 54;
 
-let gameTime = 30000;
+let gameTime = gameConfig.roundTime;
 
 export function onMessage(message: string) {
   let inputs = JSON.parse(message);
-  console.log(
-    `User ${inputs.info.name} is moving! \nW = ${inputs.input.w}\nA = ${inputs.input.a}\nS = ${inputs.input.s}\nD = ${inputs.input.d}`
-  );
 
   for (let i = 0; i < players.length; i++) {
     if (players[i].name == inputs.info.name) {
@@ -31,7 +29,6 @@ export function onMessage(message: string) {
 }
 
 export function onJoin(name: string) {
-  console.log("New player!");
   players.push(
     new Player(
       name,
@@ -59,9 +56,9 @@ export function onLoop() {
 
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
-    let speed = 1;
+    let speed = gameConfig.speedBase;
     let moving = false;
-    if (player.shift && player.stamina > 0) speed = 10;
+    if (player.shift && player.stamina > 0) speed = gameConfig.speedSprint;
 
     if (player.w) {
       player.y -= speed;
@@ -84,9 +81,10 @@ export function onLoop() {
     }
 
     if (moving && player.shift && player.stamina > -2) {
-      player.stamina = player.stamina - 1;
+      player.stamina = player.stamina - gameConfig.staminaUse;
     } else {
-      if (!(player.stamina >= 100)) player.stamina = player.stamina + 0.4;
+      if (!(player.stamina >= gameConfig.staminaMax))
+        player.stamina = player.stamina + gameConfig.staminaRefill;
     }
 
     player.x = Math.min(Math.max(player.x, 0), areaW - playerW);
@@ -98,8 +96,15 @@ export function onLoop() {
 
 function generateJson(): string {
   let currentData = {
-    info: { areaW: areaW, areaH: areaH, playerW: playerW, playerH: playerH, time: gameTime-(Date.now()-startTime) },
+    info: {
+      areaW: areaW,
+      areaH: areaH,
+      playerW: playerW,
+      playerH: playerH,
+      time: gameTime - (Date.now() - startTime),
+    },
     players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1 }],
+    bullets: [{ x: 1, y: 1 }],
   };
 
   for (let i = 0; i < players.length; i++) {
@@ -112,7 +117,15 @@ function generateJson(): string {
     });
   }
 
+  for (let i = 0; i < bullets.length; i++) {
+    currentData.bullets.push({
+      x: bullets[i].x,
+      y: bullets[i].y,
+    });
+  }
+
   currentData.players.shift(); //Removes template data, TODO: make it without this
+  currentData.bullets.shift(); //Removes template data, TODO: make it without this
 
   return JSON.stringify(currentData);
 }
