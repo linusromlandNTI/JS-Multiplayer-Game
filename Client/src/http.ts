@@ -1,3 +1,4 @@
+//Send GET request to server
 function httpGet() {
   let request = new XMLHttpRequest();
   request.open("GET", url, true);
@@ -8,6 +9,7 @@ function httpGet() {
   request.send();
 }
 
+//Send POST request to server
 function httpPost(message: string) {
   let request = new XMLHttpRequest();
   request.open("POST", url, true);
