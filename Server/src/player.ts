@@ -1,13 +1,12 @@
 export class Player {
-  
   name: string;
 
-  gameConfig = require('../gameConfig.json');
-  
+  gameConfig = require("../gameConfig.json");
+
   x: number = 0;
   y: number = 0;
-  stamina: number
-  health: number
+  stamina: number;
+  health: number;
 
   w: boolean = false;
   a: boolean = false;

@@ -56,6 +56,7 @@ export function onLoop() {
     for (let j = 0; j < players.length; j++) {
       let player = players[j];
       if (
+        bullet.originPlayer != player &&
         bullet.x < player.x + gameConfig.playerWidth &&
         bullet.x + gameConfig.bulletWidth > player.x &&
         bullet.y < player.y + gameConfig.playerHeight &&
@@ -63,7 +64,6 @@ export function onLoop() {
       ) {
         console.log("Collision!");
         bullets.splice(i, 1);
-
       }
     }
   }
@@ -104,7 +104,7 @@ export function onLoop() {
       let speedX = Math.cos(randomnessRad) * gameConfig.bulletSpeed;
       let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;
 
-      bullets.push(new Bullet(player.x, player.y, speedX, speedY));
+      bullets.push(new Bullet(player, player.x, player.y, speedX, speedY));
 
       player.canShoot = false;
 
