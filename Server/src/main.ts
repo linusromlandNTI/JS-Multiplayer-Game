@@ -172,6 +172,7 @@ function generateJson(): string {
       bulletW: gameConfig.bulletWidth,
       bulletH: gameConfig.bulletHeight,
       time: gameTime - (Date.now() - startTime),
+      inGame: inGame,
     },
     players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false }],
     bullets: [{ x: 1, y: 1 }],

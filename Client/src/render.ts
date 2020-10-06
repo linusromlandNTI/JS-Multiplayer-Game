@@ -32,61 +32,117 @@ function render(message: string) {
       30
     );
 
-    //Loop through list of players and draw everyone
-    for (let i = 0; i < jsonMessage.players.length; i++) {
-      let player = jsonMessage.players[i];
+    console.log(jsonMessage.info.inGame)
 
-      if (!player.dead) {
-        let name = player.name;
+    //Draw game or lobby depending on game state
+    if (jsonMessage.info.inGame) {
+      //Loop through list of players and draw everyone
+      for (let i = 0; i < jsonMessage.players.length; i++) {
+        let player = jsonMessage.players[i];
 
-        if (name == username && !spectator) {
-          //Draw stamina bar
-          drawRect(ctx, 10, 10, 150, 25, false, "black");
-          drawRect(
+        if (!player.dead) {
+          let name = player.name;
+
+          if (name == username && !spectator) {
+            //Draw stamina bar
+            drawRect(ctx, 10, 10, 150, 25, false, "black");
+            drawRect(
+              ctx,
+              10,
+              10,
+              150 * (player.stamina / 100),
+              25,
+              true,
+              "green"
+            );
+          }
+
+          drawPlayer(
             ctx,
-            10,
-            10,
-            150 * (player.stamina / 100),
-            25,
+            player,
+            player.x,
+            player.y,
+            pWidth,
+            pHeight,
+            "res/guy.png",
             true,
-            "green"
+            true
+          );
+
+          //Limit name to 15 characters
+          if (name.length > 15) name = name.substr(0, 15);
+        } else {
+          drawPlayer(
+            ctx,
+            player,
+            player.x,
+            player.y,
+            pHeight,
+            pWidth,
+            "res/deadGuy.png",
+            false,
+            false
           );
         }
+      }
 
-        //Limit name to 15 characters
-        if (name.length > 15) name = name.substr(0, 15);
-        //Draw name
-        ctx.font = "16px Arial";
-        ctx.fillText(name, player.x + pWidth / 2, player.y - 10);
-        //Draw health bar
-        drawRect(ctx, player.x, player.y - 6, pWidth, 4, false, "black");
-        drawRect(
+      for (let i = 0; i < jsonMessage.bullets.length; i++) {
+        let bullet = jsonMessage.bullets[i];
+        drawRect(ctx, bullet.x, bullet.y - 6, 6, 6, true, "blue");
+      }
+    } else {
+      //Loop through list of players and draw everyone
+      for (let i = 0; i < jsonMessage.players.length; i++) {
+        let player = jsonMessage.players[i];
+        drawPlayer(
           ctx,
-          player.x,
-          player.y - 6,
-          pWidth * (player.health / 100),
-          4,
+          player,
+          i*(pWidth + 50) + 50,
+          50,
+          pWidth,
+          pHeight,
+          "res/guy.png",
           true,
-          "red"
+          false
         );
-
-        //Draw player as image
-        const image = new Image();
-        image.src = "res/guy.png";
-        ctx.drawImage(image, player.x, player.y, pWidth, pHeight);
-      } else {
-        //Draw dead player as image
-        const image = new Image();
-        image.src = "res/deadGuy.png";
-        ctx.drawImage(image, player.x, player.y, pHeight, pWidth);
       }
     }
-
-    for (let i = 0; i < jsonMessage.bullets.length; i++) {
-      let bullet = jsonMessage.bullets[i];
-      drawRect(ctx, bullet.x, bullet.y - 6, 6, 6, true, "blue");
-    }
   }
+}
+
+//Draw player
+function drawPlayer(
+  ctx: CanvasRenderingContext2D,
+  player: any,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  src: string,
+  drawName: boolean,
+  drawHealth: boolean
+) {
+  //Draw name
+  ctx.font = "16px Arial";
+  ctx.fillText(player.name, x + width / 2, y - 10);
+  //Draw health bar
+  if (drawHealth) {
+    drawRect(ctx, x, y - 6, width, 4, false, "black");
+    drawRect(
+      ctx,
+      x,
+      y - 6,
+      width * (player.health / 100),
+      4,
+      true,
+      "red"
+    );
+  }
+
+  //Draw player as image
+  const image = new Image();
+  image.src = src;
+  ctx.drawImage(image, x, y, width, height);
 }
 
 //Draw rectangle
