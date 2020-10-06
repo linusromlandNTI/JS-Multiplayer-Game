@@ -78,7 +78,7 @@ function render(message: string) {
         //Draw dead player as image
         const image = new Image();
         image.src = "res/deadGuy.png";
-        ctx.drawImage(image, player.x, player.y, pWidth, pHeight);
+        ctx.drawImage(image, player.x, player.y, pHeight, pWidth);
       }
     }
 
