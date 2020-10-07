@@ -22,12 +22,12 @@
   "speedBase": 2,
   "speedSprint": 10,
 
-  "bulletSpeed": 30,
+  "bulletSpeed": 50,
   "bulletRefill": 500,
   "bulletDamage": 10,
 
   "randomAim": 0.05,
 
   "minPlayers": 2,
-  "lobbyTime": 10
+  "lobbyTime": 10000
 }
