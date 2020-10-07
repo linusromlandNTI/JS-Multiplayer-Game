@@ -87,7 +87,7 @@ function render(message: string) {
 
       for (let i = 0; i < jsonMessage.bullets.length; i++) {
         let bullet = jsonMessage.bullets[i];
-        drawRect(ctx, bullet.x, bullet.y - 6, 6, 6, true, "blue");
+        drawRect(ctx, bullet.x, bullet.y - 6, jsonMessage.info.bulletW, jsonMessage.info.bulletH, true, "blue");
       }
     } else { //In lobby
       ctx.font = "30px Arial";
