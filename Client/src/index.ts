@@ -82,8 +82,7 @@ function gameLoop() {
         shift: keys[4][1],
       },
       mouseInput: {
-        x: mouseX,
-        y: mouseY,
+        angle: Math.atan2(mouseX - playerX, mouseY - playerY),
         mouseDown: mouseDown,
       },
     };

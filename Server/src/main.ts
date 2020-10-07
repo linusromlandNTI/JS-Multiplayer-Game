@@ -23,8 +23,7 @@ export function onMessage(message: string) {
       player.d = keyboardInput.d;
       player.shift = keyboardInput.shift;
 
-      player.mouseX = mouseInput.x;
-      player.mouseY = mouseInput.y;
+      player.mouseAngle = mouseInput.angle;
       player.mouseDown = mouseInput.mouseDown;
     }
   }
@@ -121,9 +120,7 @@ export function onLoop() {
       }
 
       if (player.mouseDown && player.canShoot) {
-        let deltaX = player.mouseX - player.x;
-        let deltaY = player.mouseY - player.y;
-        let rad = Math.atan2(deltaY, deltaX);
+        let rad = player.mouseAngle;
 
         let randomnessRad = rad + (Math.random() - 0.5) * gameConfig.randomAim;
 

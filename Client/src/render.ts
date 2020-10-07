@@ -1,3 +1,6 @@
+let playerX = 0;
+let playerY = 0;
+
 //Render canvas from JSON from server
 function render(message: string) {
   //Parse message into JSON
@@ -43,6 +46,9 @@ function render(message: string) {
           let name = player.name;
 
           if (name == username && !spectator) {
+            playerX = player.x;
+            playerY = player.y;
+
             //Draw stamina bar
             drawRect(ctx, 10, 10, 150, 25, false, "black");
             drawRect(
@@ -87,7 +93,15 @@ function render(message: string) {
 
       for (let i = 0; i < jsonMessage.bullets.length; i++) {
         let bullet = jsonMessage.bullets[i];
-        drawRect(ctx, bullet.x, bullet.y - 6, jsonMessage.info.bulletW, jsonMessage.info.bulletH, true, "blue");
+        
+        let angle = Math.atan2(mouseX, mouseY);
+        ctx.rotate(angle);
+
+        const image = new Image();
+        image.src = "res/bullet.gif";
+        ctx.drawImage(image, bullet.x,bullet.y - 6, jsonMessage.info.bulletW, jsonMessage.info.bulletH);
+
+        //drawRect(ctx, bullet.x, bullet.y - 6, jsonMessage.info.bulletW, jsonMessage.info.bulletH, true, "blue");
       }
     } else { //In lobby
       ctx.font = "30px Arial";

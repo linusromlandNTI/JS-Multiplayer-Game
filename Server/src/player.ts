@@ -14,8 +14,7 @@ export class Player {
   d: boolean = false;
   shift: boolean = false;
 
-  mouseX: number = 0;
-  mouseY: number = 0;
+  mouseAngle: number = 0;
   mouseDown: boolean = false;
 
   canShoot = true;
