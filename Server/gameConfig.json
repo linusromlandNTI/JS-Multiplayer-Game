@@ -22,7 +22,7 @@
   "speedBase": 2,
   "speedSprint": 10,
 
-  "bulletSpeed": 20,
+  "bulletSpeed": 30,
   "bulletRefill": 500,
   "bulletDamage": 10,
 
