@@ -91,11 +91,11 @@ function render(message: string) {
       }
     } else { //In lobby
       ctx.font = "30px Arial";
-      ctx.textAlign = "center";
+      ctx.textAlign = "left";
 
       //Draw timer
       ctx.fillText(
-        "Winner: " + jsonMessage.info.Winner,
+        "Winner: " + jsonMessage.info.winner,
         30,
         60
       );
