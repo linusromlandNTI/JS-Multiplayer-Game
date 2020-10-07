@@ -89,7 +89,16 @@ function render(message: string) {
         let bullet = jsonMessage.bullets[i];
         drawRect(ctx, bullet.x, bullet.y - 6, 6, 6, true, "blue");
       }
-    } else {
+    } else { //In lobby
+      ctx.font = "30px Arial";
+      ctx.textAlign = "center";
+
+      //Draw timer
+      ctx.fillText(
+        "Winner: " + jsonMessage.info.Winner,
+        30,
+        60
+      );
       //Loop through list of players and draw everyone
       for (let i = 0; i < jsonMessage.players.length; i++) {
         let player = jsonMessage.players[i];
@@ -97,7 +106,7 @@ function render(message: string) {
           ctx,
           player,
           i * (pWidth + 50) + 50,
-          50,
+          200,
           pWidth,
           pHeight,
           "res/guy.png",

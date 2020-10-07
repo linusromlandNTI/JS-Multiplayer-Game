@@ -2,7 +2,7 @@
   "authKey": "/etc/letsencrypt/live/cloudremover.com/privkey.pem",
   "authCert": "/etc/letsencrypt/live/cloudremover.com/cert.pem",
 
-  "roundTime": 30000,
+  "roundTime": 60000,
 
   "gameWidth": 1500,
   "gameHeight": 800,

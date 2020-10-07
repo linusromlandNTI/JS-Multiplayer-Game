@@ -43,6 +43,7 @@ export function onJoin(name: string) {
 }
 
 let inGame = false;
+let winner = "No winner yet";
 
 export function onLoop() {
   console.log(inGame);
@@ -86,12 +87,14 @@ export function onLoop() {
     }
 
     let aliveNum = 0;
+    
     for (let i = 0; i < players.length; i++) {
       let player = players[i];
 
       if (player.dead) continue;
 
       aliveNum++;
+      winner = player.name;
 
       let speed = gameConfig.speedBase;
       let moving = false;
@@ -188,6 +191,7 @@ function generateJson(): string {
       bulletH: gameConfig.bulletHeight,
       time: gameTime - (Date.now() - startTime),
       inGame: inGame,
+      winner: winner,
     },
     players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false }],
     bullets: [{ x: 1, y: 1 }],
