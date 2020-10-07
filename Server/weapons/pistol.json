@@ -1,0 +1,9 @@
+{
+  "bulletWidth": 20,
+  "bulletHeight": 20,
+  "bulletSpeed": 10,
+  "bulletRefill": 500,
+  "bulletDamage": 50,
+
+  "randomAim": 0.05
+}

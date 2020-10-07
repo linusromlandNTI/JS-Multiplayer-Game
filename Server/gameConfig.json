@@ -19,13 +19,5 @@
   "health": 100,
 
   "speedBase": 2,
-  "speedSprint": 10,
-
-  "bulletWidth": 20,
-  "bulletHeight": 20,
-  "bulletSpeed": 10,
-  "bulletRefill": 500,
-  "bulletDamage": 10,
-
-  "randomAim": 0.05
+  "speedSprint": 10
 }
