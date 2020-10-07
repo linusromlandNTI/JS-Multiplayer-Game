@@ -93,26 +93,39 @@ function render(message: string) {
 
       for (let i = 0; i < jsonMessage.bullets.length; i++) {
         let bullet = jsonMessage.bullets[i];
-        
-        let angle = Math.atan2(mouseX, mouseY);
-        ctx.rotate(angle);
+
+        //drawRect(ctx, bullet.x, bullet.y, jsonMessage.info.bulletW, jsonMessage.info.bulletH, true, "blue");
 
         const image = new Image();
         image.src = "res/bullet.gif";
-        ctx.drawImage(image, bullet.x,bullet.y - 6, jsonMessage.info.bulletW, jsonMessage.info.bulletH);
 
-        //drawRect(ctx, bullet.x, bullet.y - 6, jsonMessage.info.bulletW, jsonMessage.info.bulletH, true, "blue");
+        ctx.save();
+        ctx.translate(bullet.x, bullet.y);
+        ctx.translate(
+          jsonMessage.info.bulletW / 2,
+          jsonMessage.info.bulletH / 2
+        );
+        ctx.rotate(bullet.angle);
+        ctx.translate(
+          -jsonMessage.info.bulletW / 2,
+          -jsonMessage.info.bulletH / 2
+        );
+        ctx.drawImage(
+          image,
+          0,
+          0,
+          jsonMessage.info.bulletW,
+          jsonMessage.info.bulletH
+        );
+        ctx.restore();
       }
-    } else { //In lobby
+    } else {
+      //In lobby
       ctx.font = "30px Arial";
       ctx.textAlign = "left";
 
       //Draw timer
-      ctx.fillText(
-        "Winner: " + jsonMessage.info.winner,
-        30,
-        60
-      );
+      ctx.fillText("Winner: " + jsonMessage.info.winner, 30, 60);
       //Loop through list of players and draw everyone
       for (let i = 0; i < jsonMessage.players.length; i++) {
         let player = jsonMessage.players[i];

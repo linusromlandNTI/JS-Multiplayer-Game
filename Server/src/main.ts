@@ -45,7 +45,6 @@ let inGame = false;
 let winner = "No winner yet";
 
 export function onLoop() {
-  console.log(inGame);
   if (inGame) {
     if (Date.now() >= startTime + gameTime) {
       resetGame();
@@ -86,7 +85,7 @@ export function onLoop() {
     }
 
     let aliveNum = 0;
-    
+
     for (let i = 0; i < players.length; i++) {
       let player = players[i];
 
@@ -156,7 +155,6 @@ export function onLoop() {
   } else {
     if (players.length >= gameConfig.minPlayers) {
       setTimeout(startGame, gameConfig.lobbyTime);
-      
     }
   }
   outData = generateJson();
@@ -164,7 +162,7 @@ export function onLoop() {
 
 function startGame() {
   inGame = true;
-      startTime = Date.now();
+  startTime = Date.now();
 }
 
 function resetGame() {
@@ -191,7 +189,7 @@ function generateJson(): string {
       winner: winner,
     },
     players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false }],
-    bullets: [{ x: 1, y: 1 }],
+    bullets: [{ x: 1, y: 1, angle: 1 }],
   };
 
   for (let i = 0; i < players.length; i++) {
@@ -209,6 +207,7 @@ function generateJson(): string {
     currentData.bullets.push({
       x: bullets[i].x,
       y: bullets[i].y,
+      angle: Math.atan2(bullets[i].ySpeed, bullets[i].xSpeed),
     });
   }
 

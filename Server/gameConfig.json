@@ -3,6 +3,8 @@
   "authCert": "/etc/letsencrypt/live/cloudremover.com/cert.pem",
 
   "roundTime": 60000,
+  "minPlayers": 2,
+  "lobbyTime": 1000,
 
   "gameWidth": 1500,
   "gameHeight": 800,
@@ -21,12 +23,9 @@
 
   "bulletWidth": 20,
   "bulletHeight": 20,
-  "bulletSpeed": 50,
+  "bulletSpeed": 10,
   "bulletRefill": 500,
   "bulletDamage": 10,
 
-  "randomAim": 0.05,
-
-  "minPlayers": 2,
-  "lobbyTime": 10000
+  "randomAim": 0.05
 }
