@@ -158,7 +158,7 @@ export function onLoop() {
     }
   } else {
     if (players.length >= gameConfig.minPlayers) {
-      setTimeout(startGame, 2000);
+      setTimeout(startGame, gameConfig.lobbyTime);
       
     }
   }

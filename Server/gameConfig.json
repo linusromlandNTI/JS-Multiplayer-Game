@@ -28,5 +28,6 @@
 
   "randomAim": 0.05,
 
-  "minPlayers": 2
+  "minPlayers": 2,
+  "lobbyTime": 10
 }
