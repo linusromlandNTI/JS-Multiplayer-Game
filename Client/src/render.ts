@@ -4,6 +4,12 @@ let playerY = 0;
 let windowWidth = 0;
 let windowHeight = 0;
 
+let areaW = 0;
+let areaH = 0;
+
+let xMult = 0;
+let yMult = 0;
+
 
 function onWindowResize () {
   windowWidth = window.innerWidth;
@@ -24,8 +30,8 @@ function render(message: string) {
   let pWidth = jsonMessage.info.playerW;
   let pHeight = jsonMessage.info.playerH;
 
-  let xMult = window.innerWidth / jsonMessage.info.areaW;
-  let yMult = window.innerHeight / jsonMessage.info.areaH;
+  xMult = window.innerWidth / jsonMessage.info.areaW;
+  yMult = window.innerHeight / jsonMessage.info.areaH;
 
   //Draw if canvas exists
   var ctx = c.getContext("2d");
