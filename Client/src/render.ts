@@ -199,11 +199,11 @@ function drawPlayer(
 
   //Draw health bar
   if (drawHealth) {
-    drawRect(ctx, x, y - 6, width, 4 * yMult, false, "black");
+    drawRect(ctx, x, y - 6 * yMult, width, 4 * yMult, false, "black");
     drawRect(
       ctx,
       x,
-      y - 6,
+      y - 6 * yMult,
       width * (player.health / 100),
       4 * yMult,
       true,
