@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  #joinMenu {
+    text-align: center;
+    width: 80%;
+    height: 80%;
+    background-color: rgb(108, 163, 245);
+  }
+  #mainCanvas {
+    width: 100vw;
+    height: 100vh;
+  }
