@@ -70,6 +70,7 @@ async function connect() {
   gameLoop();
 }
 
+let date: number = 0;
 //Run every frame
 function gameLoop() {
   //Send data if not spectator
@@ -106,6 +107,14 @@ function gameLoop() {
   if (!ws) {
     httpGet();
   }
+
+
+  let currectDate = Date.now()
+
+  console.log(1/((currectDate - date)/1000))
+
+  date = currectDate
+
 
   render(renderData);
   //Loop at next frame
