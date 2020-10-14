@@ -1,16 +1,15 @@
+//Changeable default values
+let renderScale = 1;
+
+//Unchangable variables
 let playerX = 0;
 let playerY = 0;
-
 let windowWidth = 0;
 let windowHeight = 0;
-
 let areaW = 0;
 let areaH = 0;
-
 let xMult = 0;
 let yMult = 0;
-
-let renderScale = 0.75;
 
 function onWindowResize() {
   windowWidth = window.innerWidth;
@@ -60,8 +59,10 @@ function render(message: string) {
         let player = jsonMessage.players[i];
 
         if (!player.dead) {
+          //Draw alive player
           let name = player.name;
 
+          //Do special stuff if player is this client
           if (name == username && !spectator) {
             playerX = player.x;
             playerY = player.y;
@@ -102,9 +103,6 @@ function render(message: string) {
             true,
             true
           );
-
-          //Limit name to 15 characters
-          if (name.length > 15) name = name.substr(0, 15);
         } else {
           //Draw dead player
           drawPlayer(
@@ -121,12 +119,14 @@ function render(message: string) {
         }
       }
 
+      //Draw all bullets
       for (let i = 0; i < jsonMessage.bullets.length; i++) {
         let bullet = jsonMessage.bullets[i];
 
         const image = new Image();
         image.src = "res/bullet.gif";
 
+        //Rotate canvas and stuff to draw bullet rotated, very strange, but works
         ctx.save();
         ctx.translate(bullet.x * xMult, bullet.y * yMult);
         ctx.translate(
@@ -187,15 +187,28 @@ function drawPlayer(
 ) {
   //Draw name
   if (drawName) {
+    //Limit name to 15 characters
+    let name = player.name;
+    if (name.length > 15) name = name.substr(0, 15);
+
+    //Draw name text
     ctx.font = 16 * xMult + "px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(player.name, x + width / 2, y - 10);
+    ctx.fillText(name, x + width / 2, y - 10 * yMult);
   }
 
   //Draw health bar
   if (drawHealth) {
     drawRect(ctx, x, y - 6, width, 4 * yMult, false, "black");
-    drawRect(ctx, x, y - 6, width * (player.health / 100), 4 * yMult, true, "red");
+    drawRect(
+      ctx,
+      x,
+      y - 6,
+      width * (player.health / 100),
+      4 * yMult,
+      true,
+      "red"
+    );
   }
 
   //Draw player as image
