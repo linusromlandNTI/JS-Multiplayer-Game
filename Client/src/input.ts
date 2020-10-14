@@ -57,9 +57,16 @@ document.addEventListener(
 //Change states from input field inputs
 function changeProtocol() {
   let checkBox = <HTMLInputElement>document.getElementById("protocolCheck");
+  let urlInputField = <HTMLInputElement>document.getElementById("url");
+  console.log("protocalChange")
   if (checkBox) {
     ws = checkBox.checked;
-  }
+    
+    if(checkBox.checked){
+      urlInputField.value = "wss://cloudremover.com:8069"
+  }else{
+    urlInputField.value = "https://node.cloudremover.com "
+  }}
 }
 function changeSpectator() {
   let checkBox = <HTMLInputElement>document.getElementById("spectatorCheck");
