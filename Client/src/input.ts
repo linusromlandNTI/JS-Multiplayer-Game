@@ -44,9 +44,9 @@ document.addEventListener("mouseup", (e) => {
 document.addEventListener(
   "mousemove",
   function (event) {
-    var canvas = document.getElementById("mainCanvas");
+    let canvas = document.getElementById("mainCanvas");
     if (canvas) {
-      var rect = canvas.getBoundingClientRect();
+      let rect = canvas.getBoundingClientRect();
       mouseX = event.clientX - rect.left;
       mouseY = event.clientY - rect.top;
     }
