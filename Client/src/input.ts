@@ -58,15 +58,16 @@ document.addEventListener(
 function changeProtocol() {
   let checkBox = <HTMLInputElement>document.getElementById("protocolCheck");
   let urlInputField = <HTMLInputElement>document.getElementById("url");
-  console.log("protocalChange")
+  console.log("protocalChange");
   if (checkBox) {
     ws = checkBox.checked;
-    
-    if(checkBox.checked){
-      urlInputField.value = "wss://cloudremover.com:8069"
-  }else{
-    urlInputField.value = "https://node.cloudremover.com "
-  }}
+
+    if (checkBox.checked) {
+      urlInputField.value = "wss://cloudremover.com:8069";
+    } else {
+      urlInputField.value = "https://node.cloudremover.com ";
+    }
+  }
 }
 function changeSpectator() {
   let checkBox = <HTMLInputElement>document.getElementById("spectatorCheck");
@@ -84,7 +85,7 @@ function changeRenderScale() {
   let slider = <HTMLInputElement>document.getElementById("renderSlider");
   let text = <HTMLInputElement>document.getElementById("renderscaleDisplay");
   if (renderScale) {
-    renderScale = parseInt(slider.value)/100;
+    renderScale = parseInt(slider.value) / 100;
     text.innerHTML = "Render Scale: " + slider.value + "%";
   }
 }

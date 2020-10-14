@@ -9,7 +9,7 @@ let ws: boolean = true; //WS or HTTP
 let url: string = "wss://cloudremover.com:8069"; //Default url, changeable by user
 let spectator = false;
 
-//Setup unchangable variables
+//Unchangable variables
 let username: string;
 let previousData = {};
 
@@ -20,7 +20,6 @@ function onHtmlLoad() {
   if (urlInput) {
     urlInput.value = url;
   }
-
   let protocolCheck = <HTMLInputElement>(
     document.getElementById("protocolCheck")
   );
@@ -78,6 +77,7 @@ function gameLoop() {
     let usernameInput = <HTMLInputElement>document.getElementById("username");
     username = usernameInput.value;
 
+    //Generate JSON to send to server
     let currentData = {
       info: { name: username },
       keyboardInput: {

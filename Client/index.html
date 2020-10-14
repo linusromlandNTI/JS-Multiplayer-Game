@@ -18,26 +18,26 @@
       type="image/jpg"
       href="https://cloudremover.com/favicon.ico"
     />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body onload="onHtmlLoad(); onWindowResize()" onresize="onWindowResize()">
     <div id="joinMenu">
       <h1>JS-Multiplayer-Game</h1>
 
       <input
+        class="textInput"
         id="url"
         type="url"
         oninput="changeURL()"
         placeholder="Server URL"
-        style="width: 200px"
         required
       />
       <input
+        class="textInput"
         id="username"
         type="text"
         maxlength="15"
         placeholder="Username"
-        style="width: 200px"
       />
 
       <br />
@@ -48,6 +48,7 @@
 
       <div class="slidecontainer">
         <input
+          class="slider"
           type="range"
           min="1"
           max="100"
