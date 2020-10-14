@@ -22,7 +22,7 @@ function render(message: string) {
   let jsonMessage = JSON.parse(message);
 
   //Get canvas from HTML
-  var c = <HTMLCanvasElement>document.getElementById("mainCanvas");
+  let c = <HTMLCanvasElement>document.getElementById("mainCanvas");
 
   //Get sizes from JSON
   c.width = renderScale * windowWidth;
@@ -34,7 +34,7 @@ function render(message: string) {
   yMult = (renderScale * window.innerHeight) / jsonMessage.info.areaH;
 
   //Draw if canvas exists
-  var ctx = c.getContext("2d");
+  let ctx = c.getContext("2d");
   if (ctx) {
     //Disable antialiasing on images
     ctx.imageSmoothingEnabled = false;
