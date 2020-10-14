@@ -10,11 +10,12 @@ let areaH = 0;
 let xMult = 0;
 let yMult = 0;
 
+let renderScale = 0.75;
 
-function onWindowResize () {
+function onWindowResize() {
   windowWidth = window.innerWidth;
   windowHeight = window.innerHeight;
-};
+}
 
 //Render canvas from JSON from server
 function render(message: string) {
@@ -25,13 +26,13 @@ function render(message: string) {
   var c = <HTMLCanvasElement>document.getElementById("mainCanvas");
 
   //Get sizes from JSON
-  c.width = windowWidth;
-  c.height = windowHeight;
+  c.width = renderScale * windowWidth;
+  c.height = renderScale * windowHeight;
   let pWidth = jsonMessage.info.playerW;
   let pHeight = jsonMessage.info.playerH;
 
-  xMult = window.innerWidth / jsonMessage.info.areaW;
-  yMult = window.innerHeight / jsonMessage.info.areaH;
+  xMult = (renderScale * window.innerWidth) / jsonMessage.info.areaW;
+  yMult = (renderScale * window.innerHeight) / jsonMessage.info.areaH;
 
   //Draw if canvas exists
   var ctx = c.getContext("2d");
@@ -44,14 +45,14 @@ function render(message: string) {
 
     //Draw game or lobby depending on game state
     if (jsonMessage.info.inGame) {
-      ctx.font = "30px Arial";
+      ctx.font = 30 * xMult + "px Arial";
       ctx.textAlign = "center";
 
       //Draw timer
       ctx.fillText(
         (jsonMessage.info.time / 1000).toFixed().toString(),
         c.width / 2,
-        30
+        30 * yMult
       );
 
       //Loop through list of players and draw everyone
@@ -65,19 +66,31 @@ function render(message: string) {
             playerX = player.x;
             playerY = player.y;
 
+            //Clamp stamina to min 0
+            let stamina = player.stamina;
+            if (stamina < 0) stamina = 0;
+
             //Draw stamina bar
-            drawRect(ctx, 10, 10, 150, 25, false, "black");
             drawRect(
               ctx,
-              10,
-              10,
-              150 * (player.stamina / 100),
-              25,
+              10 * xMult,
+              10 * yMult,
+              150 * xMult,
+              25 * yMult,
+              false,
+              "black"
+            );
+            drawRect(
+              ctx,
+              10 * xMult,
+              10 * yMult,
+              150 * (player.stamina / 100) * xMult,
+              25 * yMult,
               true,
               "green"
             );
           }
-
+          //Draw player
           drawPlayer(
             ctx,
             player,
@@ -92,7 +105,8 @@ function render(message: string) {
 
           //Limit name to 15 characters
           if (name.length > 15) name = name.substr(0, 15);
-        } else { //Draw dead player
+        } else {
+          //Draw dead player
           drawPlayer(
             ctx,
             player,
@@ -173,15 +187,15 @@ function drawPlayer(
 ) {
   //Draw name
   if (drawName) {
-    ctx.font = "16px Arial";
+    ctx.font = 16 * xMult + "px Arial";
     ctx.textAlign = "center";
     ctx.fillText(player.name, x + width / 2, y - 10);
   }
 
   //Draw health bar
   if (drawHealth) {
-    drawRect(ctx, x, y - 6, width, 4, false, "black");
-    drawRect(ctx, x, y - 6, width * (player.health / 100), 4, true, "red");
+    drawRect(ctx, x, y - 6, width, 4 * yMult, false, "black");
+    drawRect(ctx, x, y - 6, width * (player.health / 100), 4 * yMult, true, "red");
   }
 
   //Draw player as image

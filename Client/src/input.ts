@@ -80,3 +80,11 @@ function changeURL() {
     url = urlInput.value;
   }
 }
+function changeRenderScale() {
+  let slider = <HTMLInputElement>document.getElementById("renderSlider");
+  let text = <HTMLInputElement>document.getElementById("renderscaleDisplay");
+  if (renderScale) {
+    renderScale = parseInt(slider.value)/100;
+    text.innerHTML = "Render Scale: " + slider.value + "%";
+  }
+}

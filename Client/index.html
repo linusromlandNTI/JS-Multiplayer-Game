@@ -20,15 +20,19 @@
     />
 
     <style>
-      body{
+      body {
         margin: 0;
         padding: 0;
       }
-      #joinMenu{
+      #joinMenu {
         text-align: center;
         width: 80%;
         height: 80%;
-        background-color:rgb(108, 163, 245);
+        background-color: rgb(108, 163, 245);
+      }
+      #mainCanvas {
+        width: 100vw;
+        height: 100vh;
       }
     </style>
   </head>
@@ -58,10 +62,25 @@
       <input type="checkbox" id="spectatorCheck" onclick="changeSpectator()" />
       <a>Spectator</a>
 
+      <div class="slidecontainer">
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value="100"
+          class="slider"
+          id="renderSlider"
+          oninput="changeRenderScale()"
+        />
+      </div>
+
+      <p id="renderscaleDisplay"></p>
+
       <br />
       <button type="button" onclick="connect()">Connect</button>
-      <a href="https://www.github.com/linusromland/JS-Multiplayer-Game">GitHub Repo</a>
-
+      <a href="https://www.github.com/linusromland/JS-Multiplayer-Game"
+        >GitHub Repo</a
+      >
     </div>
 
     <canvas

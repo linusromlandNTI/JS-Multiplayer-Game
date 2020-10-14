@@ -34,6 +34,11 @@ function onHtmlLoad() {
   if (spectatorCheck) {
     spectatorCheck.checked = spectator;
   }
+  let renderSlider = <HTMLInputElement>document.getElementById("renderSlider");
+  if (renderSlider) {
+    renderSlider.value = (renderScale * 100).toString();
+  }
+  changeRenderScale();
 }
 
 //Attempt connection to server
@@ -82,7 +87,10 @@ function gameLoop() {
         shift: keys[4][1],
       },
       mouseInput: {
-        angle: Math.atan2(mouseY - playerY * yMult, mouseX - playerX * xMult),
+        angle: Math.atan2(
+          mouseY - (playerY * yMult) / renderScale,
+          mouseX - (playerX * xMult) / renderScale
+        ),
         mouseDown: mouseDown,
       },
     };
