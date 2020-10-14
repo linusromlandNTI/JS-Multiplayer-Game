@@ -99,13 +99,17 @@ function gameLoop() {
     httpGet();
   }
 
+  render(renderData);
   //Loop at next frame
   requestAnimationFrame(gameLoop);
 }
 
+let renderData = "";
+
 //Run when getting message from server
 function onMessage(message: string) {
-  render(message);
+  renderData = message;
+  //render(message);
 }
 
 //Send to HTTP or WS server
