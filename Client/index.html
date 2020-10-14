@@ -18,8 +18,15 @@
       type="image/jpg"
       href="https://cloudremover.com/favicon.ico"
     />
+
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
-  <body onload="onHtmlLoad()">
+  <body onload="onHtmlLoad(); onWindowResize()" onresize="onWindowResize()">
     <div id="joinMenu">
       <h1>BulletTrain</h1>
       <p>

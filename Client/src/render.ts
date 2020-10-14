@@ -1,6 +1,15 @@
 let playerX = 0;
 let playerY = 0;
 
+let windowWidth = 0;
+let windowHeight = 0;
+
+
+function onWindowResize () {
+  windowWidth = window.innerWidth;
+  windowHeight = window.innerHeight;
+};
+
 //Render canvas from JSON from server
 function render(message: string) {
   //Parse message into JSON
@@ -10,10 +19,13 @@ function render(message: string) {
   var c = <HTMLCanvasElement>document.getElementById("mainCanvas");
 
   //Get sizes from JSON
-  c.width = jsonMessage.info.areaW;
-  c.height = jsonMessage.info.areaH;
+  c.width = windowWidth;
+  c.height = windowHeight;
   let pWidth = jsonMessage.info.playerW;
   let pHeight = jsonMessage.info.playerH;
+
+  let xMult = window.innerWidth / jsonMessage.info.areaW;
+  let yMult = window.innerHeight / jsonMessage.info.areaH;
 
   //Draw if canvas exists
   var ctx = c.getContext("2d");
@@ -23,8 +35,6 @@ function render(message: string) {
 
     //Clear canvas
     ctx.clearRect(0, 0, c.width, c.height);
-
-    console.log(jsonMessage.info.inGame);
 
     //Draw game or lobby depending on game state
     if (jsonMessage.info.inGame) {
@@ -65,10 +75,10 @@ function render(message: string) {
           drawPlayer(
             ctx,
             player,
-            player.x,
-            player.y,
-            pWidth,
-            pHeight,
+            player.x * xMult,
+            player.y * yMult,
+            pWidth * xMult,
+            pHeight * yMult,
             "res/guy.png",
             true,
             true
@@ -94,28 +104,26 @@ function render(message: string) {
       for (let i = 0; i < jsonMessage.bullets.length; i++) {
         let bullet = jsonMessage.bullets[i];
 
-        //drawRect(ctx, bullet.x, bullet.y, jsonMessage.info.bulletW, jsonMessage.info.bulletH, true, "blue");
-
         const image = new Image();
         image.src = "res/bullet.gif";
 
         ctx.save();
-        ctx.translate(bullet.x, bullet.y);
+        ctx.translate(bullet.x * xMult, bullet.y * yMult);
         ctx.translate(
-          jsonMessage.info.bulletW / 2,
-          jsonMessage.info.bulletH / 2
+          (jsonMessage.info.bulletW * xMult) / 2,
+          (jsonMessage.info.bulletH * yMult) / 2
         );
         ctx.rotate(bullet.angle);
         ctx.translate(
-          -jsonMessage.info.bulletW / 2,
-          -jsonMessage.info.bulletH / 2
+          (-jsonMessage.info.bulletW * xMult) / 2,
+          (-jsonMessage.info.bulletH * yMult) / 2
         );
         ctx.drawImage(
           image,
           0,
           0,
-          jsonMessage.info.bulletW,
-          jsonMessage.info.bulletH
+          jsonMessage.info.bulletW * xMult,
+          jsonMessage.info.bulletH * yMult
         );
         ctx.restore();
       }
