@@ -14,6 +14,30 @@ let yMult = 0;
 function onWindowResize() {
   windowWidth = window.innerWidth;
   windowHeight = window.innerHeight;
+
+  xMult = (renderScale * window.innerWidth) / areaW;
+  yMult = (renderScale * window.innerHeight) / areaH;
+
+  //Get and scale Canvas
+  let c = <HTMLCanvasElement>document.getElementById("staticUICanvas");
+  c.width = renderScale * windowWidth;
+  c.height = renderScale * windowHeight;
+
+  let ctx = c.getContext("2d");
+  if (ctx) {
+    //Clear canvas
+    ctx.clearRect(0, 0, c.width, c.height);
+
+    drawRect(
+      ctx,
+      10 * xMult,
+      10 * yMult,
+      150 * xMult,
+      25 * yMult,
+      false,
+      "black"
+    );
+  }
 }
 
 //Render canvas from JSON from server
@@ -22,7 +46,7 @@ function render(message: string) {
   let jsonMessage = JSON.parse(message);
 
   //Get canvas from HTML
-  var c = <HTMLCanvasElement>document.getElementById("mainCanvas");
+  let c = <HTMLCanvasElement>document.getElementById("mainCanvas");
 
   //Get sizes from JSON
   c.width = renderScale * windowWidth;
@@ -30,17 +54,19 @@ function render(message: string) {
   let pWidth = jsonMessage.info.playerW;
   let pHeight = jsonMessage.info.playerH;
 
-  xMult = (renderScale * window.innerWidth) / jsonMessage.info.areaW;
-  yMult = (renderScale * window.innerHeight) / jsonMessage.info.areaH;
+  areaW = jsonMessage.info.areaW;
+  areaH = jsonMessage.info.areaH;
 
   //Draw if canvas exists
-  var ctx = c.getContext("2d");
+  let ctx = c.getContext("2d");
   if (ctx) {
     //Disable antialiasing on images
     ctx.imageSmoothingEnabled = false;
 
     //Clear canvas
     ctx.clearRect(0, 0, c.width, c.height);
+
+    onWindowResize();
 
     //Draw game or lobby depending on game state
     if (jsonMessage.info.inGame) {
@@ -71,16 +97,7 @@ function render(message: string) {
             let stamina = player.stamina;
             if (stamina < 0) stamina = 0;
 
-            //Draw stamina bar
-            drawRect(
-              ctx,
-              10 * xMult,
-              10 * yMult,
-              150 * xMult,
-              25 * yMult,
-              false,
-              "black"
-            );
+            //Fill stamina bar
             drawRect(
               ctx,
               10 * xMult,
@@ -214,7 +231,7 @@ function drawPlayer(
   //Draw player as image
   const image = new Image();
   image.src = src;
-  ctx.drawImage(image, x, y, width, height);
+  ctx.drawImage(image, Math.round(x), Math.round(y), Math.round(width), Math.round(height));
 }
 
 //Draw rectangle
@@ -230,7 +247,7 @@ function drawRect(
   let defaultColor = "black";
 
   ctx.beginPath();
-  ctx.rect(x, y, w, h);
+  ctx.rect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
   ctx.strokeStyle = color;
   ctx.fillStyle = color;
   if (filled) ctx.fill();

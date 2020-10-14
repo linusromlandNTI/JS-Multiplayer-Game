@@ -4,9 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BulletTrain</title>
-    <script>
-      var exports = {};
-    </script>
     <script src="dist/index.js"></script>
     <script src="dist/input.js"></script>
     <script src="dist/http.js"></script>
@@ -68,6 +65,9 @@
       >
     </div>
 
-    <canvas id="mainCanvas"></canvas>
+    <div id="stage">
+      <canvas id="staticUICanvas"></canvas>
+      <canvas id="mainCanvas"></canvas>
+    </div>
   </body>
 </html>

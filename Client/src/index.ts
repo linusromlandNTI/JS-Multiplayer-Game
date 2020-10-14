@@ -55,7 +55,7 @@ async function connect() {
   if (joinMenu) {
     joinMenu.style.display = "none";
   }
-  let mainCanvas = document.getElementById("mainCanvas");
+  let mainCanvas = document.getElementById("stage");
   if (mainCanvas) {
     mainCanvas.style.display = "block";
   }
@@ -109,11 +109,10 @@ function gameLoop() {
   }
 
 
-  let currectDate = Date.now()
-
-  console.log(1/((currectDate - date)/1000))
-
-  date = currectDate
+  //FPS COUNTER
+  //let currectDate = Date.now()
+  //console.log(1/((currectDate - date)/1000))
+  //date = currectDate
 
 
   render(renderData);
