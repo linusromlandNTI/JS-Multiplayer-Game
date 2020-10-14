@@ -92,14 +92,14 @@ function render(message: string) {
 
           //Limit name to 15 characters
           if (name.length > 15) name = name.substr(0, 15);
-        } else {
+        } else { //Draw dead player
           drawPlayer(
             ctx,
             player,
-            player.x,
-            player.y,
-            pHeight,
-            pWidth,
+            player.x * xMult,
+            player.y * yMult,
+            pHeight * xMult,
+            pWidth * yMult,
             "res/deadGuy.png",
             false,
             false
