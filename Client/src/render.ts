@@ -84,7 +84,7 @@ function render(message: string) {
               ctx,
               10 * xMult,
               10 * yMult,
-              150 * (player.stamina / 100) * xMult,
+              150 * (stamina / 100) * xMult,
               25 * yMult,
               true,
               "green"
