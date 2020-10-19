@@ -87,31 +87,13 @@ export function onLoop() {
     //Move player
     player.move();
 
-    if (player.mouseDown && player.canShoot) {
-      let rad = player.mouseAngle;
-
-      //Add a bit of randomness to bullet trajectory
-      let randomnessRad = rad + (Math.random() - 0.5) * gameConfig.randomAim;
-      let speedX = Math.cos(randomnessRad) * gameConfig.bulletSpeed;
-      let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;
-
-      bullets.push(new Bullet(player, player.x, player.y, speedX, speedY));
-
-      player.canShoot = false;
-
-      setTimeout(returnBullet, gameConfig.bulletRefill, player);
+    //Add bullet if shooting
+    let bInf = player.shoot();
+    if (bInf.length > 0) {
+      bullets.push(new Bullet(player, bInf[0], bInf[1], bInf[2], bInf[3]));
     }
   }
   outData = generateJson();
-}
-
-function resetGame() {
-  players = [];
-  bullets = [];
-}
-
-function returnBullet(player: Player) {
-  player.canShoot = true;
 }
 
 function generateJson(): string {

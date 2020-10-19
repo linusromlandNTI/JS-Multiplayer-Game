@@ -1,3 +1,5 @@
+import { Bullet } from "./classes";
+
 let gameConfig = require("../gameConfig.json");
 
 export class Player {
@@ -35,7 +37,7 @@ export class Player {
     this.health = gameConfig.health;
   }
 
-  move(){
+  move() {
     let speed = gameConfig.speedBase;
     let moving = false;
     if (this.shift && this.stamina > 0) speed = gameConfig.speedSprint;
@@ -75,5 +77,26 @@ export class Player {
       Math.max(this.y, 0),
       gameConfig.gameHeight - gameConfig.playerHeight
     );
+  }
+
+  shoot(): Array<number> {
+    if (this.mouseDown && this.canShoot) {
+      let rad = this.mouseAngle;
+
+      //Add a bit of randomness to bullet trajectory
+      let randomnessRad = rad + (Math.random() - 0.5) * gameConfig.randomAim;
+      let speedX = Math.cos(randomnessRad) * gameConfig.bulletSpeed;
+      let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;
+
+      this.canShoot = false;
+      setTimeout(this.returnBullet, gameConfig.bulletRefill);
+
+      return [this.x, this.y, speedX, speedY];
+    }
+    return [];
+  }
+
+  private returnBullet() {
+    this.canShoot = true;
   }
 }

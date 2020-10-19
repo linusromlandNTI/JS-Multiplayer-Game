@@ -1,4 +1,4 @@
-import { Player } from "./player";
+import { Player } from "./classes";
 let gameConfig = require("../gameConfig.json");
 
 export class Bullet {
