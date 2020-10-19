@@ -1,4 +1,3 @@
-import { config } from "process";
 import { Player, Bullet } from "./classes";
 
 export let players: Array<Player> = [];
@@ -13,9 +12,11 @@ export function onMessage(message: string) {
     let player = players[i];
 
     if (player.name == inputs.info.name) {
-      if (player.dead) {
-        player.continueAfterDeath = true;
-        break;
+      player.latestInput = Date.now();
+
+      if (player.dead && Date.now() - player.dieTime > gameConfig.reviveTime) {
+        player.dead = false;
+        player.health = gameConfig.health;
       }
 
       let keyboardInput = inputs.keyboardInput;
@@ -43,6 +44,7 @@ export function onJoin(name: string) {
 }
 
 export function onLoop() {
+  let currentTime = Date.now();
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].x += bullets[i].xSpeed;
     bullets[i].y += bullets[i].ySpeed;
@@ -69,10 +71,9 @@ export function onLoop() {
         bullet.y < player.y + gameConfig.playerHeight &&
         bullet.y + gameConfig.bulletHeight > player.y
       ) {
-
         if (player.health <= 0) {
           player.dead = true;
-          setTimeout(revivePlayer, gameConfig.reviveTime, player);
+          player.dieTime = currentTime;
 
           //Give points to killer
           bullet.originPlayer.points += 1;
@@ -87,7 +88,7 @@ export function onLoop() {
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
 
-    if(player.remove){
+    if (currentTime - player.latestInput > gameConfig.timeout) {
       players.splice(i, 1);
     }
 
@@ -154,16 +155,6 @@ export function onLoop() {
 function resetGame() {
   players = [];
   bullets = [];
-}
-
-function revivePlayer(player: Player) {
-  if(player.continueAfterDeath){
-    player.dead = false;
-    player.health = gameConfig.health;
-  } 
-  else{
-    player.remove = true;
-  }
 }
 
 function returnBullet(player: Player) {

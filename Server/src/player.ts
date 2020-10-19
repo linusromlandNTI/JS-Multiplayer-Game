@@ -20,10 +20,11 @@ export class Player {
   mouseDown: boolean = false;
 
   canShoot = true;
-  dead = false;
 
-  continueAfterDeath = false;
-  remove = false;
+  dead = false;
+  dieTime = 0;
+
+  latestInput = 0;
 
   constructor(name: string, x: number, y: number) {
     this.name = name;
