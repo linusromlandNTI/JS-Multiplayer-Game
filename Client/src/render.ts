@@ -68,8 +68,6 @@ function render(message: string) {
 
     onWindowResize();
 
-    //Draw game
-
     //Loop through list of players and draw everyone
     for (let i = 0; i < jsonMessage.players.length; i++) {
       let player = jsonMessage.players[i];
@@ -82,6 +80,8 @@ function render(message: string) {
         if (name == username && !spectator) {
           playerX = player.x;
           playerY = player.y;
+
+          console.log("Score: " + player.points)
 
           //Clamp stamina to min 0
           let stamina = player.stamina;

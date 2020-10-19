@@ -106,18 +106,20 @@ function generateJson(): string {
       bulletW: gameConfig.bulletWidth,
       bulletH: gameConfig.bulletHeight,
     },
-    players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false }],
+    players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false, points: 1 }],
     bullets: [{ x: 1, y: 1, angle: 1 }],
   };
 
   for (let i = 0; i < players.length; i++) {
+    let player = players[i];
     currentData.players.push({
-      name: players[i].name,
-      x: players[i].x,
-      y: players[i].y,
-      stamina: players[i].stamina,
-      health: players[i].health,
-      dead: players[i].dead,
+      name: player.name,
+      x: player.x,
+      y: player.y,
+      stamina: player.stamina,
+      health: player.health,
+      dead: player.dead,
+      points: player.points
     });
   }
 
