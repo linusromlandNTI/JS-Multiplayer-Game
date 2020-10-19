@@ -4,10 +4,10 @@ import { Player, Bullet } from "./classes";
 export let players: Array<Player> = [];
 export let bullets: Array<Bullet> = [];
 export let outData = "";
-let startTime = Date.now();
+//let startTime = Date.now();
 let gameConfig = require("../gameConfig.json");
 
-let gameTime = gameConfig.roundTime;
+//let gameTime = gameConfig.roundTime;
 
 export function onMessage(message: string) {
   let inputs = JSON.parse(message);
@@ -30,145 +30,118 @@ export function onMessage(message: string) {
 }
 
 export function onJoin(name: string) {
-  if (!inGame) {
-    players.push(
-      new Player(
-        name,
-        Math.random() * (gameConfig.gameWidth - gameConfig.playerWidth),
-        Math.random() * (gameConfig.gameHeight - gameConfig.playerHeight)
-      )
-    );
-  }
+  players.push(
+    new Player(
+      name,
+      Math.random() * (gameConfig.gameWidth - gameConfig.playerWidth),
+      Math.random() * (gameConfig.gameHeight - gameConfig.playerHeight)
+    )
+  );
 }
 
-let inGame = false;
-let winner = "No winner yet";
-
 export function onLoop() {
-  if (inGame) {
-    if (Date.now() >= startTime + gameTime) {
-      resetGame();
+  for (let i = 0; i < bullets.length; i++) {
+    bullets[i].x += bullets[i].xSpeed;
+    bullets[i].y += bullets[i].ySpeed;
+
+    let bullet = bullets[i];
+
+    //Remove bullet if out of play area
+    if (
+      bullet.x < -100 ||
+      bullet.x > gameConfig.gameWidth + 100 ||
+      bullet.y < -100 ||
+      bullet.y > gameConfig.gameHeight + 100
+    ) {
+      bullets.splice(i, 1);
     }
 
-    for (let i = 0; i < bullets.length; i++) {
-      bullets[i].x += bullets[i].xSpeed;
-      bullets[i].y += bullets[i].ySpeed;
-
-      let bullet = bullets[i];
-
+    for (let j = 0; j < players.length; j++) {
+      let player = players[j];
       if (
-        bullet.x < -100 ||
-        bullet.x > gameConfig.gameWidth + 100 ||
-        bullet.y < -100 ||
-        bullet.y > gameConfig.gameHeight + 100
+        bullet.originPlayer != player &&
+        bullet.x < player.x + gameConfig.playerWidth &&
+        bullet.x + gameConfig.bulletWidth > player.x &&
+        bullet.y < player.y + gameConfig.playerHeight &&
+        bullet.y + gameConfig.bulletHeight > player.y
       ) {
-        bullets.splice(i, 1);
-      }
-
-      for (let j = 0; j < players.length; j++) {
-        let player = players[j];
-        if (
-          bullet.originPlayer != player &&
-          bullet.x < player.x + gameConfig.playerWidth &&
-          bullet.x + gameConfig.bulletWidth > player.x &&
-          bullet.y < player.y + gameConfig.playerHeight &&
-          bullet.y + gameConfig.bulletHeight > player.y
-        ) {
-          if (player.health <= 0) {
-            player.dead = true;
-          } else {
-            player.health -= gameConfig.bulletDamage;
-            bullets.splice(i, 1);
-          }
+        if (player.health <= 0) {
+          player.dead = true;
+        } else {
+          player.health -= gameConfig.bulletDamage;
+          bullets.splice(i, 1);
         }
       }
     }
+  }
 
-    let aliveNum = 0;
+  for (let i = 0; i < players.length; i++) {
+    let player = players[i];
 
-    for (let i = 0; i < players.length; i++) {
-      let player = players[i];
+    if (player.dead) continue;
 
-      if (player.dead) continue;
+    let speed = gameConfig.speedBase;
+    let moving = false;
+    if (player.shift && player.stamina > 0) speed = gameConfig.speedSprint;
 
-      aliveNum++;
-      winner = player.name;
-
-      let speed = gameConfig.speedBase;
-      let moving = false;
-      if (player.shift && player.stamina > 0) speed = gameConfig.speedSprint;
-
-      if (player.w) {
-        player.y -= speed;
-        moving = true;
-      }
-
-      if (player.a) {
-        player.x -= speed;
-        moving = true;
-      }
-
-      if (player.s) {
-        player.y += speed;
-        moving = true;
-      }
-
-      if (player.d) {
-        player.x += speed;
-        moving = true;
-      }
-
-      if (player.mouseDown && player.canShoot) {
-        let rad = player.mouseAngle;
-
-        let randomnessRad = rad + (Math.random() - 0.5) * gameConfig.randomAim;
-
-        let speedX = Math.cos(randomnessRad) * gameConfig.bulletSpeed;
-        let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;
-
-        bullets.push(new Bullet(player, player.x, player.y, speedX, speedY));
-
-        player.canShoot = false;
-
-        setTimeout(returnBullet, gameConfig.bulletRefill, player);
-      }
-
-      if (moving && player.shift && player.stamina > -2) {
-        player.stamina = player.stamina - gameConfig.staminaUse;
-      } else {
-        if (!(player.stamina >= gameConfig.staminaMax))
-          player.stamina = player.stamina + gameConfig.staminaRefill;
-      }
-
-      player.x = Math.min(
-        Math.max(player.x, 0),
-        gameConfig.gameWidth - gameConfig.playerWidth
-      );
-      player.y = Math.min(
-        Math.max(player.y, 0),
-        gameConfig.gameHeight - gameConfig.playerHeight
-      );
+    if (player.w) {
+      player.y -= speed;
+      moving = true;
     }
-    if (aliveNum <= 1) {
-      resetGame();
+
+    if (player.a) {
+      player.x -= speed;
+      moving = true;
     }
-  } else {
-    if (players.length >= gameConfig.minPlayers) {
-      setTimeout(startGame, gameConfig.lobbyTime);
+
+    if (player.s) {
+      player.y += speed;
+      moving = true;
     }
+
+    if (player.d) {
+      player.x += speed;
+      moving = true;
+    }
+
+    if (player.mouseDown && player.canShoot) {
+      let rad = player.mouseAngle;
+
+      //Add a bit of randomness to bullet trajectory
+      let randomnessRad = rad + (Math.random() - 0.5) * gameConfig.randomAim;
+      let speedX = Math.cos(randomnessRad) * gameConfig.bulletSpeed;
+      let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;
+
+      bullets.push(new Bullet(player, player.x, player.y, speedX, speedY));
+
+      player.canShoot = false;
+
+      setTimeout(returnBullet, gameConfig.bulletRefill, player);
+    }
+
+    if (moving && player.shift && player.stamina > -2) {
+      player.stamina = player.stamina - gameConfig.staminaUse;
+    } else {
+      if (!(player.stamina >= gameConfig.staminaMax))
+        player.stamina = player.stamina + gameConfig.staminaRefill;
+    }
+
+    player.x = Math.min(
+      Math.max(player.x, 0),
+      gameConfig.gameWidth - gameConfig.playerWidth
+    );
+    player.y = Math.min(
+      Math.max(player.y, 0),
+      gameConfig.gameHeight - gameConfig.playerHeight
+    );
   }
   outData = generateJson();
 }
 
-function startGame() {
-  inGame = true;
-  startTime = Date.now();
-}
 
 function resetGame() {
   players = [];
   bullets = [];
-  inGame = false;
 }
 
 function returnBullet(player: Player) {
@@ -184,9 +157,9 @@ function generateJson(): string {
       playerH: gameConfig.playerHeight,
       bulletW: gameConfig.bulletWidth,
       bulletH: gameConfig.bulletHeight,
-      time: gameTime - (Date.now() - startTime),
-      inGame: inGame,
-      winner: winner,
+      time: 1,
+      inGame: true,
+      winner: "wat",
     },
     players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false }],
     bullets: [{ x: 1, y: 1, angle: 1 }],
