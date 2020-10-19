@@ -97,6 +97,7 @@ export class Player {
   }
 
   private returnBullet() {
+    console.log("badaboiii");
     this.canShoot = true;
   }
 }
