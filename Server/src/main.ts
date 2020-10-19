@@ -52,25 +52,15 @@ export function onLoop() {
     let bullet = bullets[i];
 
     //Remove bullet if out of play area
-    if (
-      bullet.x < -100 ||
-      bullet.x > gameConfig.gameWidth + 100 ||
-      bullet.y < -100 ||
-      bullet.y > gameConfig.gameHeight + 100
-    ) {
+    if (bullet.outOfGameArea()) {
       bullets.splice(i, 1);
     }
 
     //Check collision with all players
     for (let j = 0; j < players.length; j++) {
       let player = players[j];
-      if (
-        bullet.originPlayer != player &&
-        bullet.x < player.x + gameConfig.playerWidth &&
-        bullet.x + gameConfig.bulletWidth > player.x &&
-        bullet.y < player.y + gameConfig.playerHeight &&
-        bullet.y + gameConfig.bulletHeight > player.y
-      ) {
+
+      if (bullet.collides(player)) {
         if (player.health <= 0) {
           player.dead = true;
           player.dieTime = currentTime;
@@ -94,29 +84,8 @@ export function onLoop() {
 
     if (player.dead) continue;
 
-    let speed = gameConfig.speedBase;
-    let moving = false;
-    if (player.shift && player.stamina > 0) speed = gameConfig.speedSprint;
-
-    if (player.w) {
-      player.y -= speed;
-      moving = true;
-    }
-
-    if (player.a) {
-      player.x -= speed;
-      moving = true;
-    }
-
-    if (player.s) {
-      player.y += speed;
-      moving = true;
-    }
-
-    if (player.d) {
-      player.x += speed;
-      moving = true;
-    }
+    //Move player
+    player.move();
 
     if (player.mouseDown && player.canShoot) {
       let rad = player.mouseAngle;
@@ -132,22 +101,6 @@ export function onLoop() {
 
       setTimeout(returnBullet, gameConfig.bulletRefill, player);
     }
-
-    if (moving && player.shift && player.stamina > -2) {
-      player.stamina = player.stamina - gameConfig.staminaUse;
-    } else {
-      if (!(player.stamina >= gameConfig.staminaMax))
-        player.stamina = player.stamina + gameConfig.staminaRefill;
-    }
-
-    player.x = Math.min(
-      Math.max(player.x, 0),
-      gameConfig.gameWidth - gameConfig.playerWidth
-    );
-    player.y = Math.min(
-      Math.max(player.y, 0),
-      gameConfig.gameHeight - gameConfig.playerHeight
-    );
   }
   outData = generateJson();
 }

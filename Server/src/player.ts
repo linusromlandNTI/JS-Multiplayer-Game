@@ -1,7 +1,7 @@
+let gameConfig = require("../gameConfig.json");
+
 export class Player {
   name: string;
-
-  gameConfig = require("../gameConfig.json");
 
   points = 0;
 
@@ -31,7 +31,49 @@ export class Player {
     this.x = x;
     this.y = y;
 
-    this.stamina = this.gameConfig.staminaMax;
-    this.health = this.gameConfig.health;
+    this.stamina = gameConfig.staminaMax;
+    this.health = gameConfig.health;
+  }
+
+  move(){
+    let speed = gameConfig.speedBase;
+    let moving = false;
+    if (this.shift && this.stamina > 0) speed = gameConfig.speedSprint;
+
+    if (this.w) {
+      this.y -= speed;
+      moving = true;
+    }
+
+    if (this.a) {
+      this.x -= speed;
+      moving = true;
+    }
+
+    if (this.s) {
+      this.y += speed;
+      moving = true;
+    }
+
+    if (this.d) {
+      this.x += speed;
+      moving = true;
+    }
+
+    if (moving && this.shift && this.stamina > -2) {
+      this.stamina = this.stamina - gameConfig.staminaUse;
+    } else {
+      if (!(this.stamina >= gameConfig.staminaMax))
+        this.stamina = this.stamina + gameConfig.staminaRefill;
+    }
+
+    this.x = Math.min(
+      Math.max(this.x, 0),
+      gameConfig.gameWidth - gameConfig.playerWidth
+    );
+    this.y = Math.min(
+      Math.max(this.y, 0),
+      gameConfig.gameHeight - gameConfig.playerHeight
+    );
   }
 }
