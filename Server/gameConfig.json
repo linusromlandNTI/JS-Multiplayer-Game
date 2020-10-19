@@ -17,6 +17,7 @@
   "staminaUse": 1,
 
   "health": 100,
+  "reviveTime": 2000,
 
   "speedBase": 2,
   "speedSprint": 10,

@@ -20,6 +20,9 @@ export class Player {
   canShoot = true;
   dead = false;
 
+  continueAfterDeath = false;
+  remove = false;
+
   constructor(name: string, x: number, y: number) {
     this.name = name;
     this.x = x;

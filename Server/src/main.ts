@@ -4,19 +4,22 @@ import { Player, Bullet } from "./classes";
 export let players: Array<Player> = [];
 export let bullets: Array<Bullet> = [];
 export let outData = "";
-//let startTime = Date.now();
 let gameConfig = require("../gameConfig.json");
-
-//let gameTime = gameConfig.roundTime;
 
 export function onMessage(message: string) {
   let inputs = JSON.parse(message);
 
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
-    let keyboardInput = inputs.keyboardInput;
-    let mouseInput = inputs.mouseInput;
+
+    if (player.dead) {
+      player.continueAfterDeath = true;
+      break;
+    }
+
     if (player.name == inputs.info.name) {
+      let keyboardInput = inputs.keyboardInput;
+      let mouseInput = inputs.mouseInput;
       player.w = keyboardInput.w;
       player.a = keyboardInput.a;
       player.s = keyboardInput.s;
@@ -56,6 +59,7 @@ export function onLoop() {
       bullets.splice(i, 1);
     }
 
+    //Check collision with all players
     for (let j = 0; j < players.length; j++) {
       let player = players[j];
       if (
@@ -65,11 +69,13 @@ export function onLoop() {
         bullet.y < player.y + gameConfig.playerHeight &&
         bullet.y + gameConfig.bulletHeight > player.y
       ) {
+        bullets.splice(i, 1);
+
         if (player.health <= 0) {
           player.dead = true;
+          setTimeout(revivePlayer, gameConfig.reviveTime, player);
         } else {
           player.health -= gameConfig.bulletDamage;
-          bullets.splice(i, 1);
         }
       }
     }
@@ -77,6 +83,10 @@ export function onLoop() {
 
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
+
+    if(player.remove){
+      players.splice(i, 1);
+    }
 
     if (player.dead) continue;
 
@@ -138,10 +148,19 @@ export function onLoop() {
   outData = generateJson();
 }
 
-
 function resetGame() {
   players = [];
   bullets = [];
+}
+
+function revivePlayer(player: Player) {
+  if(player.continueAfterDeath){
+    player.dead = false;
+    player.health = gameConfig.health;
+  } 
+  else{
+    player.remove = true;
+  }
 }
 
 function returnBullet(player: Player) {
@@ -157,9 +176,6 @@ function generateJson(): string {
       playerH: gameConfig.playerHeight,
       bulletW: gameConfig.bulletWidth,
       bulletH: gameConfig.bulletHeight,
-      time: 1,
-      inGame: true,
-      winner: "wat",
     },
     players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false }],
     bullets: [{ x: 1, y: 1, angle: 1 }],
