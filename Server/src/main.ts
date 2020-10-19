@@ -87,6 +87,7 @@ export function onLoop() {
     //Move player
     player.move();
 
+    console.log(player.shoot());
     //Add bullet if shooting
     let bInf = player.shoot();
     if (bInf.length > 0) {
@@ -106,7 +107,17 @@ function generateJson(): string {
       bulletW: gameConfig.bulletWidth,
       bulletH: gameConfig.bulletHeight,
     },
-    players: [{ name: "tmp", x: 1, y: 1, stamina: 1, health: 1, dead: false, points: 1 }],
+    players: [
+      {
+        name: "tmp",
+        x: 1,
+        y: 1,
+        stamina: 1,
+        health: 1,
+        dead: false,
+        points: 1,
+      },
+    ],
     bullets: [{ x: 1, y: 1, angle: 1 }],
   };
 
@@ -119,7 +130,7 @@ function generateJson(): string {
       stamina: player.stamina,
       health: player.health,
       dead: player.dead,
-      points: player.points
+      points: player.points,
     });
   }
 
