@@ -25,7 +25,7 @@
 
   "bulletWidth": 20,
   "bulletHeight": 20,
-  "bulletSpeed": 10,
+  "bulletSpeed": 25,
   "bulletRefill": 500,
   "bulletDamage": 10,
 
