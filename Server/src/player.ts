@@ -3,6 +3,8 @@ export class Player {
 
   gameConfig = require("../gameConfig.json");
 
+  points = 0;
+
   x: number = 0;
   y: number = 0;
   stamina: number;

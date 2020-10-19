@@ -12,12 +12,12 @@ export function onMessage(message: string) {
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
 
-    if (player.dead) {
-      player.continueAfterDeath = true;
-      break;
-    }
-
     if (player.name == inputs.info.name) {
+      if (player.dead) {
+        player.continueAfterDeath = true;
+        break;
+      }
+
       let keyboardInput = inputs.keyboardInput;
       let mouseInput = inputs.mouseInput;
       player.w = keyboardInput.w;
@@ -69,12 +69,15 @@ export function onLoop() {
         bullet.y < player.y + gameConfig.playerHeight &&
         bullet.y + gameConfig.bulletHeight > player.y
       ) {
-        bullets.splice(i, 1);
 
         if (player.health <= 0) {
           player.dead = true;
           setTimeout(revivePlayer, gameConfig.reviveTime, player);
+
+          //Give points to killer
+          bullet.originPlayer.points += 1;
         } else {
+          bullets.splice(i, 1);
           player.health -= gameConfig.bulletDamage;
         }
       }
