@@ -98,8 +98,8 @@ export function onLoop() {
   outData = generateJson();
 }
 
-function resetBullet(player: Player){
-  player.canShoot = true
+function resetBullet(player: Player) {
+  player.canShoot = true;
 }
 
 function generateJson(): string {
