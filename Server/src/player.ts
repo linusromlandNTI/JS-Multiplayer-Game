@@ -89,15 +89,9 @@ export class Player {
       let speedY = Math.sin(randomnessRad) * gameConfig.bulletSpeed;
 
       this.canShoot = false;
-      setTimeout(this.returnBullet, gameConfig.bulletRefill);
 
       return [this.x, this.y, speedX, speedY];
     }
     return [];
-  }
-
-  private returnBullet() {
-    console.log("badaboiii");
-    this.canShoot = true;
   }
 }

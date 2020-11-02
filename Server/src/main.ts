@@ -87,14 +87,19 @@ export function onLoop() {
     //Move player
     player.move();
 
-    console.log(player.shoot());
+    //console.log(player.shoot());
     //Add bullet if shooting
     let bInf = player.shoot();
     if (bInf.length > 0) {
       bullets.push(new Bullet(player, bInf[0], bInf[1], bInf[2], bInf[3]));
+      setTimeout(resetBullet, gameConfig.bulletRefill, player);
     }
   }
   outData = generateJson();
+}
+
+function resetBullet(player: Player){
+  player.canShoot = true
 }
 
 function generateJson(): string {
