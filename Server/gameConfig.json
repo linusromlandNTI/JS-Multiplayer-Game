@@ -1,7 +1,4 @@
 {
-  "authKey": "/etc/letsencrypt/live/cloudremover.com/privkey.pem",
-  "authCert": "/etc/letsencrypt/live/cloudremover.com/cert.pem",
-
   "roundTime": 60000,
   "minPlayers": 2,
   "lobbyTime": 1000,

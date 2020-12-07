@@ -3,12 +3,11 @@ import fs from "fs";
 import https from "https";
 
 export class Ws {
-
-  gameConfig = require("../gameConfig.json");
+  serverConfig = require("../serverConfig.json");
 
   httpsServer = https.createServer({
-    key: fs.readFileSync(this.gameConfig.authKey),
-    cert: fs.readFileSync(this.gameConfig.authCert),
+    key: fs.readFileSync(this.serverConfig.authKey),
+    cert: fs.readFileSync(this.serverConfig.authCert),
   });
 
   wss: WebSocket.Server;
