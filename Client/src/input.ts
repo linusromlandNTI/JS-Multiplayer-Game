@@ -68,6 +68,7 @@ function changeProtocol() {
       urlInputField.value = "https://node.cloudremover.com ";
     }
   }
+  changeURL();
 }
 function changeSpectator() {
   let checkBox = <HTMLInputElement>document.getElementById("spectatorCheck");

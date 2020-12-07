@@ -43,7 +43,13 @@ function onWindowResize() {
 //Render canvas from JSON from server
 function render(message: string) {
   //Parse message into JSON
-  let jsonMessage = JSON.parse(message);
+  let jsonMessage;
+
+  try {
+    jsonMessage = JSON.parse(message);
+  } catch (error) {
+    return;
+  }
 
   //Get canvas from HTML
   let c = <HTMLCanvasElement>document.getElementById("mainCanvas");
@@ -81,7 +87,7 @@ function render(message: string) {
           playerX = player.x;
           playerY = player.y;
 
-          console.log("Score: " + player.points)
+          console.log("Score: " + player.points);
 
           //Clamp stamina to min 0
           let stamina = player.stamina;
