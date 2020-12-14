@@ -17,6 +17,8 @@ export function onMessage(message: string) {
       if (player.dead && Date.now() - player.dieTime > gameConfig.reviveTime) {
         player.dead = false;
         player.health = gameConfig.health;
+        player.x = Math.random() * (gameConfig.gameWidth - gameConfig.playerWidth);
+        player.y = Math.random() * (gameConfig.gameHeight - gameConfig.playerHeight);
       }
 
       let keyboardInput = inputs.keyboardInput;
@@ -45,6 +47,8 @@ export function onJoin(name: string) {
 
 export function onLoop() {
   let currentTime = Date.now();
+
+  //Loop through bullets
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].x += bullets[i].xSpeed;
     bullets[i].y += bullets[i].ySpeed;
@@ -75,14 +79,13 @@ export function onLoop() {
     }
   }
 
+  //Loop through players
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
 
     if (currentTime - player.latestInput > gameConfig.timeout) {
       players.splice(i, 1);
     }
-
-    if (player.dead) continue;
 
     //Move player
     player.move();
