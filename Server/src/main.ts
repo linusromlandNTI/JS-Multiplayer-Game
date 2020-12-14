@@ -17,6 +17,8 @@ export function onMessage(message: string) {
       if (player.dead && Date.now() - player.dieTime > gameConfig.reviveTime) {
         player.dead = false;
         player.health = gameConfig.health;
+        player.x = Math.random() * (gameConfig.gameWidth - gameConfig.playerWidth);
+        player.y = Math.random() * (gameConfig.gameHeight - gameConfig.playerHeight);
       }
 
       let keyboardInput = inputs.keyboardInput;
@@ -83,13 +85,6 @@ export function onLoop() {
 
     if (currentTime - player.latestInput > gameConfig.timeout) {
       players.splice(i, 1);
-    }
-
-    if (player.dead) {
-      player.health = gameConfig.health;
-
-      player.x = Math.random() * (gameConfig.gameWidth - gameConfig.playerWidth);
-      player.y = Math.random() * (gameConfig.gameHeight - gameConfig.playerHeight);
     }
 
     //Move player
