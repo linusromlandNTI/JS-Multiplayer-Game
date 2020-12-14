@@ -1,6 +1,6 @@
 # JS-Multiplayer-Game
 
-*** Currently in development and not working 100% ***
+*** Currently in development ***
 
 ## Open Source Multiplayer Browser Game. 
 
