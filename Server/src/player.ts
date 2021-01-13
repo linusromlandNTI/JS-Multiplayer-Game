@@ -40,26 +40,28 @@ export class Player {
   move() {
     let speed = gameConfig.speedBase;
     let moving = false;
-    if (this.shift && this.stamina > 0) speed = gameConfig.speedSprint;
+    if (!this.dead) {
+      if (this.shift && this.stamina > 0) speed = gameConfig.speedSprint;
 
-    if (this.w) {
-      this.y -= speed;
-      moving = true;
-    }
+      if (this.w) {
+        this.y -= speed;
+        moving = true;
+      }
 
-    if (this.a) {
-      this.x -= speed;
-      moving = true;
-    }
+      if (this.a) {
+        this.x -= speed;
+        moving = true;
+      }
 
-    if (this.s) {
-      this.y += speed;
-      moving = true;
-    }
+      if (this.s) {
+        this.y += speed;
+        moving = true;
+      }
 
-    if (this.d) {
-      this.x += speed;
-      moving = true;
+      if (this.d) {
+        this.x += speed;
+        moving = true;
+      }
     }
 
     if (moving && this.shift && this.stamina > -2) {
