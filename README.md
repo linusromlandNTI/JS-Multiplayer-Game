@@ -5,7 +5,6 @@
 Ett spel i webbläsaren med obegränsat antal spelare.<br>
 Hela spelet går ut på att döda varandra. <br>
 
-<br>
 JS-Multiplayer-Game är vårat gymnasiearbete 2020/2021.<br>
 Det är Linus Romland, Anton Helenius och Markus Simonsen från NTI Kronhus Göteborg. 
 
