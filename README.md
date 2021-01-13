@@ -27,6 +27,7 @@ JS-Multiplayer-Game finns live att pröva på följande länk [game.cloudremover
 För att bygga programmet själv behöver du ha [NodeJS](https://nodejs.org/en/) installerat.<br>
 Du behöver även ha [TypeScript](https://www.npmjs.com/package/typescript) installerat via npm globalt.
 <br><br>
+Navigera till mappen där du har programmet klonat i en terminal<br><br>
 Konfigurera din servers Secure Websocket nycklar
 ```
 cp ./Server/serverConfig.json.example ./Server/serverConfig.json
