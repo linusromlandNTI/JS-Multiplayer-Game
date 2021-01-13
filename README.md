@@ -24,7 +24,9 @@ JS-Multiplayer-Game använder följande bilbiotek och språk för att göra spel
 JS-Multiplayer-Game finns live att pröva på följande länk [game.cloudremover.com](https://game.cloudremover.com/)
 
 ### Bygg programmet själv
-
+För att bygga programmet själv behöver du ha [NodeJS](https://nodejs.org/en/) installerat.<br>
+Du behöver även ha [TypeScript](https://www.npmjs.com/package/typescript) installerat via npm globalt.
+<br>
 Konfigurera din servers Secure Websocket nycklar
 ```
 cp ./Server/serverConfig.json.example ./Server/serverConfig.json
