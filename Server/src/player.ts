@@ -82,7 +82,7 @@ export class Player {
   }
 
   shoot(): Array<number> {
-    if (this.mouseDown && this.canShoot) {
+    if (this.mouseDown && this.canShoot && !this.dead) {
       let rad = this.mouseAngle;
 
       //Add a bit of randomness to bullet trajectory
