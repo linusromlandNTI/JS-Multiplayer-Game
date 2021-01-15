@@ -34,7 +34,7 @@ cp ./Server/serverConfig.json.example ./Server/serverConfig.json
 nano ./Server/serverConfig.json
 ```
 
-Bygg clientens typescript
+Bygg klientens typescript
 ```
 tsc -p ./Client
 ```
