@@ -1,4 +1,6 @@
 {
+  "httpActive": true,
+  "wsActive": true,
   "authKey": "/etc/letsencrypt/live/cloudremover.com/privkey.pem",
   "authCert": "/etc/letsencrypt/live/cloudremover.com/cert.pem"
 }

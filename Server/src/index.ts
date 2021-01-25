@@ -1,10 +1,17 @@
 import { Ws, Http } from "./classes";
 import { onMessage, onJoin, onLoop, players, outData } from "./main";
+let serverConfig = require("../serverConfig.json");
 
 let ws;
 let http;
-createHttpServer();
-createWsServer();
+
+//Start servers based on enabled protocols
+if (serverConfig.httpActive) {
+  createHttpServer();
+}
+if (serverConfig.wsActive) {
+  createWsServer();
+}
 
 setInterval(onLoop, 15);
 
