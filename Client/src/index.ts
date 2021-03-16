@@ -69,6 +69,8 @@ async function connect() {
   gameLoop();
 }
 
+let pingList: number[] = [];
+
 let bullet = false;
 
 let date: number = 0;
@@ -120,7 +122,8 @@ function gameLoop() {
   //date = currectDate
 
   if (render(renderData) && bullet) {
-    console.log(Date.now() - date);
+    pingList.push(Date.now() - date);
+    console.log(pingList);
     bullet = false;
   }
   //Loop at next frame
