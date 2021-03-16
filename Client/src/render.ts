@@ -161,6 +161,8 @@ function render(message: string) {
       ctx.restore();
     }
   }
+
+  return jsonMessage.bullets.length > 0;
 }
 
 //Draw player

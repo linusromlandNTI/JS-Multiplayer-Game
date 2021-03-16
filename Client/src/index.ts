@@ -99,6 +99,7 @@ function gameLoop() {
     //Send data only if data is different from last data sent
     if (!(JSON.stringify(previousData) == JSON.stringify(currentData))) {
       sendToServer(JSON.stringify(currentData));
+      date = Date.now();
     }
     previousData = currentData;
   }
@@ -108,14 +109,14 @@ function gameLoop() {
     httpGet();
   }
 
-
   //FPS COUNTER
   //let currectDate = Date.now()
   //console.log(1/((currectDate - date)/1000))
   //date = currectDate
 
-
-  render(renderData);
+  if (render(renderData)) {
+    console.log(Date.now() - date);
+  }
   //Loop at next frame
   requestAnimationFrame(gameLoop);
 }
