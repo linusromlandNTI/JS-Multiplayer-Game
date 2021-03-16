@@ -87,7 +87,7 @@ function render(message: string) {
           playerX = player.x;
           playerY = player.y;
 
-          console.log("Score: " + player.points);
+          //console.log("Score: " + player.points);
 
           //Clamp stamina to min 0
           let stamina = player.stamina;
