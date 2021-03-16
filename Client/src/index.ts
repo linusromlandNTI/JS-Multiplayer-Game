@@ -69,6 +69,8 @@ async function connect() {
   gameLoop();
 }
 
+let bullet = false;
+
 let date: number = 0;
 //Run every frame
 function gameLoop() {
@@ -99,7 +101,10 @@ function gameLoop() {
     //Send data only if data is different from last data sent
     if (!(JSON.stringify(previousData) == JSON.stringify(currentData))) {
       sendToServer(JSON.stringify(currentData));
-      date = Date.now();
+      if (currentData.mouseInput.mouseDown) {
+        bullet = true;
+        date = Date.now();
+      }
     }
     previousData = currentData;
   }
@@ -114,8 +119,9 @@ function gameLoop() {
   //console.log(1/((currectDate - date)/1000))
   //date = currectDate
 
-  if (render(renderData)) {
+  if (render(renderData) && bullet) {
     console.log(Date.now() - date);
+    bullet = false;
   }
   //Loop at next frame
   requestAnimationFrame(gameLoop);
