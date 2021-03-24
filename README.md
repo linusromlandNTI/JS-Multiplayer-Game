@@ -47,6 +47,6 @@ npm run dev
 ```
 ## License
 
-JS-Multiplayer-Game är under MIT License. Se `LICENSE` för mer information.
+JS-Multiplayer-Game är under MIT License. Se <a href="https://github.com/linusromlandSkola/JS-Multiplayer-Game/blob/master/LICENSE">`LICENSE`</a> för mer information.
 
 
